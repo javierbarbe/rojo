@@ -5,7 +5,7 @@ public class PruebaBiblioteca {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Revista[] revistas = new Revista[2];
-//		for (int i=0; i< detres.length;i++) {
+//		for (int i=0; i< detres.length;i++) { sdsd
 		revistas[0] = new Revista("12211", "Recetas de la Abuela", 1876, 12);
 		revistas[1] = new Revista("12511", "El señor de los Codiguillos", 1996, 2);
 
