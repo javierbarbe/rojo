@@ -55,7 +55,7 @@ class LaminaConFiguras extends JPanel{
 		double centroejeX= rectangulo.getCenterX();
 		double centroenY= rectangulo.getCenterY();
 		
-		circulo.setFrameFromCenter(centroejeX, centroenY, 59, 179);
+		circulo.setFrameFromCenter(centroejeX, centroenY,190, 180);
 		g2.draw(circulo);
 	}
 	

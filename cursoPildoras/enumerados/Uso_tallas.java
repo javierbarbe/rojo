@@ -1,4 +1,4 @@
-package cursoPilodras.enumerados;
+package enumerados;
 import java.util.*;
 public class Uso_tallas {
 
