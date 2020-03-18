@@ -39,14 +39,14 @@ int correctas=0;
 			String palabrametida= e.next();
 			if(palabrametida.equals(larousse.get(a[mio[i]]))) {
 				/*
-			palabrametida es igual a del hashmap larousse, cojo con get te devuelve 
+			palabrametida es igual a del hashmap larousse, cojo con get-> te devuelve 
 			el valor de un value, pero necesito que le pases por parametro una clave / key
-			entonces, con el array String a en el que he metido las respuestas con un tamaño 
+			entonces, con el array String "a" en el que he metido las respuestas con un tamaño 
 			automatico gracias al metodo keysettoarraynewString[0]
 			tengo en cada una de las posiciones del array las respuestas ordenadas ...
 			si de ese array cojo la posicion que coincide con el valor que hay en el array mio posicion i;
 			estoy cogiendo de a el valor "0" que es forbid, o el valor "1" que es fever...
-			en definitiva el valor "i" que es cualquiera de los almacenados
+			en definitiva el valor "i" que es cualquiera de los almacenados obligando a que i no se repita :)
 			
 			*/
 				System.out.println("palabra correcta");
