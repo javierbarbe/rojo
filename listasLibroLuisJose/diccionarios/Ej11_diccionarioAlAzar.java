@@ -36,7 +36,7 @@ int correctas=0;
 		for (int i=0 ; i<mio.length; i++) {
 			System.out.println(a[mio[i]]+" : "); //el array a String le el valor de la posicion almacenada
 				// en el array mio; en cada pos tiene un valor distinto por el constructor de la clase
-			String palabrametida= e.next();
+			String palabrametida= e.nextLine();
 			if(palabrametida.equals(larousse.get(a[mio[i]]))) {
 				/*
 			palabrametida es igual a del hashmap larousse, cojo con get-> te devuelve 
@@ -52,12 +52,17 @@ int correctas=0;
 				System.out.println("palabra correcta");
 				correctas++; 
 			}else {
-				System.out.println("respuesta incorrecta");
+				System.out.println("La respuesta "+ palabrametida+" es incorrecta");
 				System.out.println("La respuesta correcta es "+ larousse.get(a[mio[i]]));
 			}
 			
-		}
 		
+		}
+		if(correctas>2) {
+			System.out.println("Muy bien has conseguido una puntacion de :"+ correctas);
+			}else {
+				System.out.println("Tu puntuación es demasiado baja ... deberías repasar zoquete");
+			}
 		
 	
 // 		System.arraycopy(numeros, 0, copiado, 0, numeros.length);
