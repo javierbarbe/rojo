@@ -10,6 +10,7 @@ public class Ej13_GestesimalMejorado_lista {
 		int opcion = 0;
 		String codigo = "";
 		boolean modificable=false;
+		boolean salir=false;
 		ArrayList<Articulo> almacen = new ArrayList<Articulo>();
 		almacen.add(new Articulo("3335E", "Chubasquero", 36.5, 66, 1));
 		almacen.add(new Articulo("3325E", "Mascarillas", 12.5, 32, 3));
@@ -27,7 +28,7 @@ public class Ej13_GestesimalMejorado_lista {
 		System.out.println("4. Modificacion de articulos");
 		System.out.println("5. Entrada de mercancias");
 		System.out.println("6. Salida de mercancias");
-
+//System.out.println(almacen.get(1));
 		System.out.println("Qué opción eliges: ");
 		opcion = e.nextInt();
 		switch (opcion) {
@@ -119,6 +120,43 @@ public class Ej13_GestesimalMejorado_lista {
 		}if ( modificable==false) {
 			System.out.println("le codigo no era correcto");
 		}
+		break;
+		
+		case 5:  System.out.println("Introduce el codigo del articulo que quieras aumentar stock");
+		codigo=e.next();
+		for(int i= 0; i < almacen.size();i++) {
+			Articulo aux = almacen.get(i);
+			if(aux.getCodigo().equals(codigo)) {
+				System.out.println("Actualmente hay "+ aux.getStock()+" unidades\nDi "
+						+ "la cantidad a aumentar del stock");
+				aux.aumentaStock(e.nextInt());
+				System.out.println("La cantidad de este articulo ahora es de "+ aux.getStock());
+			}else {
+				System.out.println("Lo lamento el codigo introducido es erróneo");
+			}
+		}
+		break;
+		
+		case 6: System.out.println("Qué articulo venderemos hoy??\nDime el codigo");
+		codigo=e.next();
+		for ( int i= 0; i<almacen.size(); i++) {
+			Articulo aux= almacen.get(i);
+			if(aux.getCodigo().equals(codigo)) {
+				System.out.println("actualmente hay "+ aux.getStock());
+				if(aux.getStock()<1) {
+					System.out.println("Lo siento no hay unidades disponibles"
+							+ "de ese articulo");
+					salir=true;
+				}
+				if (!salir ) {
+				System.out.println("Cuantas unidades desea vender?");
+				aux.vendeStock(e.nextInt());
+				System.out.println("Quedan en stock : "+ aux.getStock());
+				}
+			}
+		}
+		break; 
+		
 		}// fin de switch
 
 		}while (opcion !=7);

@@ -23,6 +23,12 @@ public class Articulo {
 				+"\nPrecio Venta "+this.precioVenta+"\nPrecio Compra "+this.precioCompra
 				+"\nCodigo de producto: "+ this.codigo+"\n ";
 	}
+	public void aumentaStock(int aumento) {
+		this.stock+=aumento;
+	}
+	public void vendeStock(int venta) {
+		this.stock-=venta;
+	}
 	
 	public int getStock() {
 		return stock;
