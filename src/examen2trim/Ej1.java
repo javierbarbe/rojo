@@ -22,6 +22,10 @@ public class Ej1 {
 		for (int i = 0; i < recibido.length; i++) {
 			System.out.println("Introduce numero en el array");
 			numero = e.nextInt();
+			while( numero>100 || numero <0) {
+				System.out.println("por favor numeros entre 1 y 100");
+				numero=e.nextInt();
+			}
 			recibido[i] = numero;
 			if (numero == 0) {
 				i = recibido.length - 1;

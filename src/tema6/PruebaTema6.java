@@ -44,11 +44,11 @@ public class PruebaTema6 {
 //		 ut.imprimeArr(ut.menores);
 //		System.out.println();
 //		 ut.saltea();
-//		CopiaReyes re= new CopiaReyes();
-		ArraySinElementosRepetidos aro= new ArraySinElementosRepetidos();
-		aro.imprimeArray(aro.generaNumeros());
-		//re.setCantidadReyes(5);
-		//re.asignaOrdinalidad(re.nombreReyes());
+		Ej20Reyes re= new Ej20Reyes();
+//		ArraySinElementosRepetidos aro= new ArraySinElementosRepetidos();
+//		aro.imprimeArray(aro.generaNumeros());
+		re.setCantidadReyes(5);
+		re.asignaOrdinalidad(re.nombreReyes());
 	}
 
 }

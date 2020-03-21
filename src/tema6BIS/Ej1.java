@@ -1,7 +1,7 @@
 package tema6BIS;
 
 public class Ej1 {
-
+//LOS DOS CORCHETES 
 	int [] [] arra = new int [3][6];
 	
 	public Ej1() {
