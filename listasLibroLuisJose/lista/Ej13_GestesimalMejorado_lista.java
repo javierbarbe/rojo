@@ -227,7 +227,7 @@ public class Ej13_GestesimalMejorado_lista {
 
 }
 
- class  Menu {
+  class  Menu {
 	Articulo nuevo = new Articulo();
 	Scanner e = new Scanner(System.in);
 	int incorrecto;
