@@ -25,7 +25,10 @@ public class Ej8CartasEspania {
 			baraja.add(cartaaux);
 		
 //			while(cartaaux.getPalo().equals(ultimoPalo) && )
-		}System.out.println(baraja);
+		}
+		for ( Carta i : baraja) {
+			System.out.println(i);
+		}
 		
 	}
 
