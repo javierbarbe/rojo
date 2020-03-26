@@ -13,6 +13,7 @@ public class Ej11 {
 		int contador=0;
 		HashMap <String,String> midiccionario= new HashMap<String,String>();
 		midiccionario.put("coche","car");
+		
 		midiccionario.put("llaves", "keys");
 		midiccionario.put("castillo", "castle");
 		midiccionario.put("clase", "class");
