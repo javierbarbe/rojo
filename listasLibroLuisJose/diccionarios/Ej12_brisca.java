@@ -26,7 +26,7 @@ public class Ej12_brisca {
 		// introduzco valores, en el caso de que exista el valor nuevo, busca otro no
 		// usado
 		// luego lo añade a la mano;
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 10; i++) {
 			do {
 				carto = new Cartas2();
 
