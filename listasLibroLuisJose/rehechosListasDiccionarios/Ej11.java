@@ -55,6 +55,7 @@ System.out.println("tus respuestas correctas son "+ contador);
 for (int i= 0 ; i< erroneas; i++) {
 System.out.printf("%10s traduccion correcta=> %10s",dicarray[erroneos[i]] ,midiccionario.get(dicarray[erroneos[i]]));
 System.out.println();
+
 }
 }}
 class NumAleatorio{
