@@ -18,7 +18,7 @@ public class Ej12 {
 		valores.put("sota", 2);
 		valores.put("caballo", 3);
 		valores.put("rey", 4);
-		
+		int puntuacion=0;
 		ArrayList <Carta > mano= new ArrayList<Carta>();
 		Carta carto= new Carta();
 		for ( int i = 0; i< 10 ; i++) {
@@ -26,10 +26,13 @@ public class Ej12 {
 				carto=new Carta();
 			}while(mano.contains(carto));
 			mano.add(carto);
+			
 		}for( Carta c : mano) {
-			System.out.println(c);
+			System.out.printf("%10s vale %20d", c ,valores.get(c.getValor()));
+			System.out.println();
+			puntuacion+=valores.get(c.getValor());
 		}
-	
+	System.out.println("Has obtenido "+puntuacion+" puntos");
 	}
 
 }

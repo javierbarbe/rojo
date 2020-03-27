@@ -51,7 +51,7 @@ public class Ej11 {
 	}
 		
 		
-System.out.println("tus respuestas correctas son "+ contador);
+System.out.println("tus respuestas correctas son "+ contador+"\nErroneas son "+erroneas);
 for (int i= 0 ; i< erroneas; i++) {
 System.out.printf("%10s traduccion correcta=> %10s",dicarray[erroneos[i]] ,midiccionario.get(dicarray[erroneos[i]]));
 System.out.println();
