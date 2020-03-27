@@ -23,19 +23,19 @@ public class Cartas2 implements Comparable{
 	}
 	public boolean equals(Object obj) {
 		if (obj == null) {
-		return false;
+			return false;
 		}
 		if (getClass() != obj.getClass()) {
-		return false;
-		}
+			return false;
+		} 
 		final Cartas2 other = (Cartas2) obj;
 		if (!Objects.equals(this.numero, other.numero)) {
-		return false;
+			return false;
 		}
 		if (!Objects.equals(this.palo, other.palo)) {
-		return false;
+			return false;
 		}
-		return true;
+			return true;
 		}
 	@Override
 	public int compareTo(Object o) {

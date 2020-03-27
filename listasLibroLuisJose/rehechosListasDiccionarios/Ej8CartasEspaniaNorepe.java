@@ -1,6 +1,7 @@
 package rehechosListasDiccionarios;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Ej8CartasEspaniaNorepe {
 
@@ -64,7 +65,22 @@ class Carta implements Comparable {
 	protected void setValor(String valor) {
 		this.valor = valor;
 	}
-
+	public boolean equals(Object o) {
+		if(o==null ) {
+			return false;
+		}
+		if(getClass()!= o.getClass()) {
+			return false;
+		}
+		final Carta auxi= (Carta) o;
+		if (!Objects.equals(this.getValor(),auxi.getValor())) {
+			return false;
+		}
+		if(!Objects.equals(this.getPalo(), auxi.getPalo())) {
+			return false;
+		}
+		return true;
+	}
 	@Override
 	public int compareTo(Object o) {
 		Carta auxi = (Carta) o;
