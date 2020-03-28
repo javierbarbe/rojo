@@ -1,6 +1,7 @@
 package rehechosListasDiccionarios;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Ej12 {
@@ -28,11 +29,18 @@ public class Ej12 {
 			mano.add(carto);
 			
 		}for( Carta c : mano) {
-			System.out.printf("%10s vale %20d", c ,valores.get(c.getValor()));
+			System.out.printf("%-18s vale %2d puntos", c ,valores.get(c.getValor()));
+			System.out.println();
+			puntuacion+=valores.get(c.getValor());
+		}Collections.sort(mano);
+		System.out.println();
+		for( Carta c : mano) {
+			System.out.printf("%-18s vale %2d puntos", c ,valores.get(c.getValor()));
 			System.out.println();
 			puntuacion+=valores.get(c.getValor());
 		}
-	System.out.println("Has obtenido "+puntuacion+" puntos");
+		System.out.println("      ================");
+	System.out.println("\tHas obtenido "+puntuacion+" puntos");
 	}
 
 }
