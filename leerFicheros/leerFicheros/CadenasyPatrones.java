@@ -1,13 +1,19 @@
 package leerFicheros;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CadenasyPatrones {
 
 	public static void main(String[] args) {
 		// TODO Apéndice de método generado automáticamente
-		String presentacion= "HOla mi nombre es Javier Ba9999rbero y vengo de china";
+		String presentacion= "HOla mi nombre es .Javier Ba9999rbero\" y vengo de china";
 //		Pattern pa= Pattern.compile("[0-9]");
+		Pattern pat= Pattern.compile("Javier");
+		Matcher mat= pat.matcher("Hola me llamo \".Javier");
+		if (mat.find()) {
+			System.out.println("coincide con \"javier");
+		}
 		presentacion=(presentacion.replaceAll("(Javier)", "Iasien"));
 		presentacion=presentacion.replaceAll("e", "E");
 		presentacion=presentacion.replaceAll("[0-9]","" );
