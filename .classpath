@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="listasLibroLuisJose"/>
 	<classpathentry kind="src" path="prKiwicDiccionarios"/>
 	<classpathentry kind="src" path="leerFicheros"/>
+	<classpathentry kind="src" path="aplicacionesDDR"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

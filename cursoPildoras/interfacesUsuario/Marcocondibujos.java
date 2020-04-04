@@ -1,5 +1,7 @@
 package interfacesUsuario;
 
+//package interfacesUsuario;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
@@ -32,6 +34,7 @@ class Marco extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		LaminaConFiguras cuadrado= new LaminaConFiguras();
 		add(cuadrado);
+		
 	}
 	
 }
