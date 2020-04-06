@@ -9,15 +9,17 @@ public class EscribiendoEnMarco {
 
 	public static void main(String[] args) {
 		// TODO Apéndice de método generado automáticamente
-		marcoconTexto uno = new marcoconTexto();
+		
+		
+		marcoconTexto no = new  marcoconTexto();
 	}
 
 }
 class marcoconTexto extends JFrame{
 	
 	public marcoconTexto () {
-		setVisible(true);
 		
+		setVisible(true);
 		Toolkit pantalla= Toolkit.getDefaultToolkit();
 		Dimension tamaniopant= pantalla.getScreenSize();
 		int alto= tamaniopant.height;
@@ -32,12 +34,20 @@ class marcoconTexto extends JFrame{
 	
 }
 
+
 class lamina extends JPanel{
 	
 	public void paintComponent (Graphics g) {
 		super.paintComponent(g);
-		
-		g.drawString("Hola javier", 400, 100);
+		Graphics2D g2 = (Graphics2D) g;
+		Font fuente = new Font ("Arial",Font.BOLD, 33);
+		g2.setFont(fuente);
+		g2.setColor(Color.BLUE);
+		g2.drawString("Hola comeme la polla javier", 40, 100);
+		g2.setFont(new Font("Curier",55,14));
+		g2.drawString("Perico", 33, 44);
 	}
 	
 }
+
+

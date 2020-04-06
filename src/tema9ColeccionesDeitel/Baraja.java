@@ -1,11 +1,11 @@
-package listasIvan;
+package tema9ColeccionesDeitel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import listasIvan.Carta.Palo;
+import tema9ColeccionesDeitel.Carta.Palo;
 
 public class Baraja {
 

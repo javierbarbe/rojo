@@ -1,4 +1,4 @@
-package listasIvan;
+package tema9ColeccionesDeitel;
 
 import java.util.Comparator;
 
