@@ -62,13 +62,29 @@ class Marco extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		Panel letras = new Panel();
 //		add(letras);
+	
+		
 	}
 }
-class Panel extends JPanel{
-	@Override
-	protected void paintComponent(Graphics g) {
+ class  Panel extends JPanel{
+
+	protected  void paintComponent(Graphics g) {
+		HashMap<String, Color> mapaColores = new HashMap<>();
+		mapaColores.put("Negro", Color.BLACK);
+		mapaColores.put("Azul", Color.BLUE);
+		mapaColores.put("Cyan", Color.CYAN);
+		mapaColores.put("Gris oscuro", Color.DARK_GRAY);
+		mapaColores.put("Gris", Color.GRAY);
+		mapaColores.put("Verde", Color.GREEN);
+		mapaColores.put("Gris claro", Color.LIGHT_GRAY);
+		mapaColores.put("Magenta", Color.MAGENTA);
+		mapaColores.put("Naranja", Color.ORANGE);
+		mapaColores.put("Rosa", Color.PINK);
+		mapaColores.put("Rojo", Color.RED);
+		mapaColores.put("Blanco", Color.WHITE);
+		mapaColores.put("Amarillo", Color.YELLOW);
 		super.paintComponent(g);
-		
+		g.setColor(mapaColores.get("Verde"));
 		g.drawString("HOla ", 66, 66);
 	}
 }

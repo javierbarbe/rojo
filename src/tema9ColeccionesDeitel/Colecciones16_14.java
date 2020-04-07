@@ -30,7 +30,7 @@ public class Colecciones16_14 {
 		}
 			
 			for (Map.Entry<String, Integer> entry : letras.entrySet()) {
-			    System.out.println("clave = " + entry.getKey() + ", valor = " + entry.getValue());
+			    System.out.println("clave = " + entry.getKey() + ", valor =  " + entry.getValue());
 			}
 		
 	}
