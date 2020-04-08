@@ -30,7 +30,9 @@ public class Cliente {
 		this.saldo = saldo;
 	}
 
-	
+	public String toString() {
+		return this.nombre;
+	}
 	
 	//CONSTRUCTOR
 	public Cliente(String nombre, String num_cuenta, double saldo) {

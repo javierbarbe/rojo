@@ -1,6 +1,7 @@
 package metodoEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -22,23 +23,15 @@ public class Cuenta {
 		lista.add(cl2);
 		System.out.println(lista);
 		Iterator <Cliente> it= lista.iterator();
-		while (it.hasNext()) {
-			
-			if(lista.contains(it)) {
-				System.out.println(it+ " repetido");
-			}
-			String nombre2= it.next().getNombre();
-			if(nombre2.equals(cl1.getNombre())) {
-			System.out.println(nombre2);
-//			String ncuenta= it.
-			}
-		}
+		
+		System.out.println(lista);
+		Collections.sort(lista);
 		System.out.println(lista);
 
 	}
 
 }
-class Cliente{
+class Cliente implements Comparable{ //PARA PODER ORDENAR TIENE QUE TENER ESTA INTERFAZ Y EL METODO COMPARETO
 	private String nombre, n_cuenta;
 	private int saldo;
 	
@@ -96,5 +89,10 @@ class Cliente{
 	}
 	public String toString() {
 		return this.nombre+ " "+ this.n_cuenta;
+	}
+	
+	public int compareTo (Object o) {
+		Cliente otro= (Cliente) o;
+		return this.getNombre().compareTo(otro.getNombre());
 	}
 }
