@@ -14,8 +14,8 @@ public class Pila {
 		System.out.println(pila);
 		pila.push(333);
 		System.out.println(pila);
-		pila.pop();
-		System.out.println(pila);
+		//pila.pop();
+		//System.out.println(pila);
 		try{
 			while(true) {
 		

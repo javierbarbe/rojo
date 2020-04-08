@@ -15,6 +15,7 @@ public class Colecciones16_16Palabras_duplicadas {
 		HashMap<String, Integer> mapa = new HashMap<>();
 		for (String o : almacen) {
 			System.out.println(o);
+			o=o.toLowerCase();
 			if (mapa.containsKey(o)) {
 				int cuenta = mapa.get(o); //IMPORTANTISIMO !!!!!!!!!!!!
 				mapa.put(o, cuenta + 1);
