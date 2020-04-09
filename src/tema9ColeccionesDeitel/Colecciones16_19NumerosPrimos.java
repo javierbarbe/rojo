@@ -25,7 +25,7 @@ public class Colecciones16_19NumerosPrimos {
 		HashMap<Integer, Integer> factores = new HashMap<>();
 		
 	
-		Primo jaja = new Primo(555454);
+		Primo jaja = new Primo(5554);
 		if(jaja.esPrimo()) {
 		System.out.println("el numero es primo");
 		}else {
