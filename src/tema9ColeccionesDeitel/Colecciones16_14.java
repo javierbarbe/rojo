@@ -1,6 +1,7 @@
 package tema9ColeccionesDeitel;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class Colecciones16_14 {
 				letras.put(letrita, 1);
 			}
 		}
+		
 			
 			for (Map.Entry<String, Integer> entry : letras.entrySet()) {
 			    System.out.println("clave = " + entry.getKey() + ", valor =  " + entry.getValue());

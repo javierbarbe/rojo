@@ -22,28 +22,13 @@ public class Colecciones16_15colores {
 		 * programa en Java. Use su nueva clase en una aplicación que permita al usuario
 		 * seleccionar un color y dibujar una figura en ese color.
 		 */
-		HashMap<String, Color> mapa= new HashMap<>();
-		mapa.put("Negro", Color.BLACK);
-		mapa.put("Azul", Color.BLUE);
-		mapa.put("Cyan", Color.CYAN);
-		mapa.put("Gris oscuro", Color.DARK_GRAY);
-		mapa.put("Gris", Color.GRAY);
-		mapa.put("Verde", Color.GREEN);
-		mapa.put("Gris claro", Color.LIGHT_GRAY);
-		mapa.put("Magenta", Color.MAGENTA);
-		mapa.put("Naranja", Color.ORANGE);
-		mapa.put("Rosa", Color.PINK);
-		mapa.put("Rojo", Color.RED);
-		mapa.put("Blanco", Color.WHITE);
-		mapa.put("Amarillo", Color.YELLOW);
 		
-		String color = JOptionPane.showInputDialog("Elige un color");
-		Color elegido =mapa.get(color) ;
 		
 		Marco mimarco= new Marco();
-	mimarco.setBackground(elegido);
+		EligeColor elegido = new EligeColor();
+	mimarco.setBackground(elegido.getElegido());
 	Graphics2D gra = (Graphics2D) mimarco.getGraphics();
-	gra.setColor(elegido);
+	gra.setColor(elegido.getElegido());
 	Panel let= new Panel();
 	mimarco.add(let);
 			
@@ -66,25 +51,39 @@ class Marco extends JFrame{
 		
 	}
 }
+class EligeColor{  //clase para elegir un color del HAshMap colores
+	protected Color getElegido() {
+		return elegido;
+	}
+	private Color elegido;
+	public EligeColor() {
+		HashMap<String, Color> mapa= new HashMap<>();
+		mapa.put("Negro", Color.BLACK);
+		mapa.put("Azul", Color.BLUE);
+		mapa.put("Cyan", Color.CYAN);
+		mapa.put("Gris oscuro", Color.DARK_GRAY);
+		mapa.put("Gris", Color.GRAY);
+		mapa.put("Verde", Color.GREEN);
+		mapa.put("Gris claro", Color.LIGHT_GRAY);
+		mapa.put("Magenta", Color.MAGENTA);
+		mapa.put("Naranja", Color.ORANGE);
+		mapa.put("Rosa", Color.PINK);
+		mapa.put("Rojo", Color.RED);
+		mapa.put("Blanco", Color.WHITE);
+		mapa.put("Amarillo", Color.YELLOW);
+		
+		String color = JOptionPane.showInputDialog("Elige un color");
+		 elegido =mapa.get(color) ;
+		
+	}
+}
  class  Panel extends JPanel{
 
 	protected  void paintComponent(Graphics g) {
-		HashMap<String, Color> mapaColores = new HashMap<>();
-		mapaColores.put("Negro", Color.BLACK);
-		mapaColores.put("Azul", Color.BLUE);
-		mapaColores.put("Cyan", Color.CYAN);
-		mapaColores.put("Gris oscuro", Color.DARK_GRAY);
-		mapaColores.put("Gris", Color.GRAY);
-		mapaColores.put("Verde", Color.GREEN);
-		mapaColores.put("Gris claro", Color.LIGHT_GRAY);
-		mapaColores.put("Magenta", Color.MAGENTA);
-		mapaColores.put("Naranja", Color.ORANGE);
-		mapaColores.put("Rosa", Color.PINK);
-		mapaColores.put("Rojo", Color.RED);
-		mapaColores.put("Blanco", Color.WHITE);
-		mapaColores.put("Amarillo", Color.YELLOW);
+		EligeColor micolor = new EligeColor();
+		
 		super.paintComponent(g);
-		g.setColor(mapaColores.get("Verde"));
+		g.setColor(micolor.getElegido()); //llamo al metodo getElegido para estableccer un color
 		g.drawString("HOla ", 66, 66);
 	}
 }

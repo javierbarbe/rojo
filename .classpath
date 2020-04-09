@@ -7,5 +7,6 @@
 	<classpathentry kind="src" path="prKiwicDiccionarios"/>
 	<classpathentry kind="src" path="leerFicheros"/>
 	<classpathentry kind="src" path="aplicacionesDDR"/>
+	<classpathentry kind="src" path="examenAñoPasado"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
