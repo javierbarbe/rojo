@@ -25,13 +25,13 @@ public class Colecciones16_19NumerosPrimos {
 		HashMap<Integer, Integer> factores = new HashMap<>();
 		
 	
-		Primo jaja = new Primo(5554);
+		Primo jaja = new Primo(5354);
 		if(jaja.esPrimo()) {
 		System.out.println("el numero es primo");
 		}else {
 		Set <Primo> coleccionPrimos = jaja.primoSiguiente();
 		
-		System.out.println("coleccion de primos LinkedList");
+		System.out.println("coleccion de primoSETst");
 		System.out.println(coleccionPrimos);
 		
 		
