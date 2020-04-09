@@ -25,11 +25,11 @@ public class Colecciones16_19NumerosPrimos {
 		HashMap<Integer, Integer> factores = new HashMap<>();
 		
 	
-		Primo jaja = new Primo(5354);
+		Primo jaja = new Primo(16);
 		if(jaja.esPrimo()) {
 		System.out.println("el numero es primo");
 		}else {
-		Set <Primo> coleccionPrimos = jaja.primoSiguiente();
+		Set <Primo> coleccionPrimos = jaja.listaDePrimosHastaNumero();
 		
 		System.out.println("coleccion de primoSETst");
 		System.out.println(coleccionPrimos);
@@ -44,11 +44,34 @@ public class Colecciones16_19NumerosPrimos {
 	System.out.println(jaja.obtenerFactores());
 	}
 		
+		System.out.println(jaja.obtenerFactores1vez());
+		
 	}// fin de metodo main
 
 }
 
 class Primo {
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + numero;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Primo other = (Primo) obj;
+		if (numero != other.numero)
+			return false;
+		return true;
+	}
 	protected int getNumero() {
 		return numero;
 	}
@@ -61,8 +84,9 @@ class Primo {
 	private int numero;
 	private boolean esPrimo = false;
 
-	Set<Primo> lista = new HashSet<>();
-	LinkedList<Integer> factore= new LinkedList<>();
+	private Set<Primo> lista = new HashSet<>();
+	private LinkedList<Integer> factore= new LinkedList<>();
+	private Set<Primo> factores1vez= new HashSet<>();
 
 	public Primo(int numero) {
 		this.numero = numero;
@@ -83,7 +107,7 @@ class Primo {
 		}
 	}
 
-	public Set<Primo> primoSiguiente() {
+	public Set<Primo> listaDePrimosHastaNumero() {
 
 		for (int i = 1; i < numero; i++) {
 			Primo aux = new Primo(i);
@@ -101,7 +125,7 @@ class Primo {
 	
 
 	public LinkedList<Integer> obtenerFactores() {
-		Set <Primo> listAux= primoSiguiente();
+		Set <Primo> listAux= listaDePrimosHastaNumero();
 		int nomeral= this.getNumero();
 		
 		while (nomeral>1) {
@@ -115,5 +139,22 @@ class Primo {
 				}
 		}
 		return factore;
+	}
+	public Set<Primo> obtenerFactores1vez() {
+		Set <Primo> listAux= listaDePrimosHastaNumero();
+		
+		int nomeral= this.getNumero();
+		
+		while (nomeral>1) {
+			for ( Primo p : listAux) {
+				if(p.getNumero()!=1) {
+					if(nomeral%p.getNumero()==0) {
+						nomeral/=p.getNumero();
+						factores1vez.add(p);
+					}
+				}
+			}
+		}
+		return factores1vez;
 	}
 }

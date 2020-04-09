@@ -42,6 +42,9 @@ public class TreesetsinInterfazComparator {
 				return desc1.compareTo(desc2);
 				}
 			}*/
+			
+			//la otra opcion es usar el objeto compara_art  
+			//TreeSet<Articulo2> ordenaAlfabetico = new TreeSet<>(compara_art);
 			TreeSet<Articulo2> ordenaAlfabetico = new TreeSet<>(new Comparator<Articulo2>() {
 
 				@Override
