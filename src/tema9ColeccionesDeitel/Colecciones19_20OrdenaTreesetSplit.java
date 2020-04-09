@@ -20,7 +20,7 @@ public class Colecciones19_20OrdenaTreesetSplit {
 		for (String palabra : palabrasCortadas) {
 			fraseSet.add(palabra);
 		}
-		fraseSet.
+	
 		System.out.println(fraseSet);
 	}
 
