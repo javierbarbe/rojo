@@ -25,11 +25,12 @@ public class Colecciones16_19NumerosPrimos {
 		HashMap<Integer, Integer> factores = new HashMap<>();
 		
 	
-		Primo jaja = new Primo(7);
+		Primo jaja = new Primo(555454);
 		if(jaja.esPrimo()) {
+		System.out.println("el numero es primo");
+		}else {
 		Set <Primo> coleccionPrimos = jaja.primoSiguiente();
 		
-		}
 		System.out.println("coleccion de primos LinkedList");
 		System.out.println(coleccionPrimos);
 		
@@ -39,8 +40,9 @@ public class Colecciones16_19NumerosPrimos {
 		for (int i=0; i<array.length;i++) {
 //			System.out.println(array[i]);
 		}
-		System.out.println("Hhhhhhhhhhhhola");
-	
+		System.out.println("FACTORES DEL NUMERO "+jaja.getNumero());
+	System.out.println(jaja.obtenerFactores());
+	}
 		
 	}// fin de metodo main
 
