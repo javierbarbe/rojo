@@ -4,7 +4,22 @@ public class Jugador {
 	private String nombre;
 	private Poderes pod;
 	Scanner s = new Scanner(System.in);
+	Set <Poderes> acumulados = new TreeSet<Poderes>();
+	public void añadePoderes(Poderes pod) {
+		this.pod=pod;
+		this.acumulados.add(pod);
+//		System.out.println(pod.getCantidad());
+		this.pod.aumentaCantidad();
+//		System.out.println(pod.getCantidad());
+	}
+	public Jugador (String nombre, Set<Poderes> miset) {
+		this.nombre=nombre;
+		this.acumulados.addAll(miset);
+	}
 	
+	public Jugador (String nombre) {
+		this.nombre=nombre;
+	}
 	public Jugador(String nombre, Poderes pod) {
 //		Poderes heman= new Poderes();
 //		heman.cargarPoderes();
@@ -16,17 +31,31 @@ public class Jugador {
 			pod= new Poderes(podernuevo);
 		}
 		if(Poderes.mapaPoderes.containsKey(pod)) {
-	System.out.println("este poder existe ");
+//	System.out.println("este poder existe ");
 	
 	
 		}
 		this.pod=pod;
 		this.pod.aumentaCantidad();
+		this.añadePoderes(pod);
 	}
 
 
-protected Poderes getPod() {
-		return pod;
+protected String getNombre() {
+		return nombre;
+	}
+
+
+	protected void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+protected String getPod() {
+	for (Poderes a : this.acumulados) {
+		return (a.toString());
+	}
+		return "h";
 	}
 
 
@@ -34,10 +63,18 @@ protected Poderes getPod() {
 		this.pod = pod;
 	}
 
+	public String toString () {
+		return this.nombre+" "+ this.acumulados;
+	}
 
 public static void main (String args[]) {
-	Jugador javi = new Jugador("javi", new Poderes("calzoncillos"));
+	Poderes jo = new Poderes();
+	jo.cargarPoderes();
 	Jugador jesu = new Jugador("jesu", new Poderes("fuerza"));
+	jesu.añadePoderes(new Poderes("paciencia"));
+	jesu.añadePoderes(new Poderes("invisibilidad"));
+	Jugador javi = new Jugador("javi", jesu.acumulados);
 	
+	System.out.println(javi);
 }
 }
