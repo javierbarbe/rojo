@@ -1,6 +1,12 @@
-package powerSW;
+package heroquest;
+
+
+
 import java.util.*;
-public class Jugador {
+
+import powerSW.Poderes;
+
+public class Jugadores {
 	private String nombre;
 	private Poderes pod;
 	Scanner s = new Scanner(System.in);
@@ -12,15 +18,15 @@ public class Jugador {
 		this.pod.aumentaCantidad();
 //		System.out.println(pod.getCantidad());
 	}
-	public Jugador (String nombre, Set<Poderes> miset) {
+	public Jugadores (String nombre, Personaje raza, Set<Poderes> miset) {
 		this.nombre=nombre;
 		this.acumulados.addAll(miset);
 	}
 	
-	public Jugador (String nombre) {
+	public Jugadores (String nombre) {
 		this.nombre=nombre;
 	}
-	public Jugador(String nombre, Poderes pod) {
+	public Jugadores(String nombre, Poderes pod) {
 //		Poderes heman= new Poderes();
 //		heman.cargarPoderes();
 		this.nombre=nombre;
@@ -70,10 +76,10 @@ protected String getPod() {
 public static void main (String args[]) {
 	Poderes jo = new Poderes();
 	jo.cargarPoderes();
-	Jugador jesu = new Jugador("jesu", new Poderes("fuerza"));
+	Jugadores jesu = new Jugadores("jesu", new Poderes("fuerza"));
 	jesu.añadePoderes(new Poderes("paciencia"));
 	jesu.añadePoderes(new Poderes("invisibilidad"));
-	Jugador javi = new Jugador("javi", jesu.acumulados);
+	Jugadores javi = new Jugadores("javi", jesu.acumulados);
 	
 	System.out.println(javi);
 }

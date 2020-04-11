@@ -45,7 +45,7 @@ public class Poderes implements Comparable<Poderes> {
 
 	private String poder;
 	static public HashMap<Poderes, Integer> mapaPoderes = new HashMap<>();
-	static Set<Poderes> arraypoderes = new TreeSet<>();
+	private static Set<Poderes> arraypoderes = new TreeSet<>();
 	private int cantidad = 0;
 
 	public Poderes(String power) {
@@ -65,7 +65,7 @@ public class Poderes implements Comparable<Poderes> {
 		this.cantidad = cantidad;
 	}
 
-	protected void aumentaCantidad() {
+	public void aumentaCantidad() {
 		int total = mapaPoderes.get(this);
 		total++;
 		mapaPoderes.put(this, total);
@@ -90,7 +90,7 @@ public class Poderes implements Comparable<Poderes> {
 				if (linea != null) {
 					String pod = linea.toString();
 					Poderes po = new Poderes(pod);
-					arraypoderes.add(po);
+					getArraypoderes().add(po);
 					mapaPoderes.put(po, 0);
 				}
 			}
@@ -188,6 +188,14 @@ public class Poderes implements Comparable<Poderes> {
 	public int compareTo(Poderes o) {
 		// TODO Auto-generated method stub
 		return this.poder.compareTo(o.poder);
+	}
+
+	public static Set<Poderes> getArraypoderes() {
+		return arraypoderes;
+	}
+
+	public static void setArraypoderes(Set<Poderes> arraypoderes) {
+		Poderes.arraypoderes = arraypoderes;
 	}
 
 }
