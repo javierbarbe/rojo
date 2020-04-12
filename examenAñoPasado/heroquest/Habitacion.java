@@ -16,7 +16,8 @@ public class Habitacion {
 			Dado d6 = new Dado(6);
 			Dado d4 = new Dado(4);
 			abierta = true;
-			int resultado = d6.getValor();// pongo un valor fijo de pruebas
+			int resultado = d6.getValor();
+			System.out.println("tirada: "+resultado);// pongo un valor fijo de pruebas
 			switch (resultado) {
 			case 1:
 				for (int i = 0; i < d4.getValor(); i++) {
@@ -41,6 +42,11 @@ public class Habitacion {
 			case 5:
 				for (int i = 0; i < d4.getValor(); i++) {
 					habitacion.add(new Enemigo("fimir"));
+				}
+				break;
+			case 6:
+				for (int i = 0; i < d4.getValor(); i++) {
+					habitacion.add(new Enemigo("goblin"));
 				}
 				break;
 			}
@@ -70,15 +76,20 @@ public class Habitacion {
 		return habitacion;
 	}
 	protected int numEnemigosRestantes() {
+		if(!abierta || cantidadEnemigos==0) {
+			System.out.println("0");
+			return 0;
+		}else {
 		return cantidadEnemigos;
+		}
 	}
-	protected int getCantidadEnemigos() {
+	protected void listadoEnemigos() {
 	//	comprobarMuertes();
 		for (Enemigo e : habitacion) {
 			System.out.println(e);
 			System.out.println();
 		}
-		return cantidadEnemigos;
+		
 	}
 
 	protected void setCantidadEnemigos(int cantidadEnemigos) {

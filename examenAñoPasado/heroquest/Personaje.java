@@ -12,10 +12,11 @@ public class Personaje {
 
 	final String[] oficios = { "Bárbaro", "Bailarín guerrero", "Tanque", "Mago", "Ladrón" };
 	private String raza;
-	private boolean oficioExiste = false, razaExiste = false;
+	private boolean oficioExiste = false, razaExiste = false,atacado=false;
 	private String oficio;
 	private String nombre;
-	private int daño, vida, magia,resistencia;
+	private int daño, vida, magia,acciones=2,resistencia;
+	
 
 	public Personaje(String nombre, String raza, String oficio) {
 		this.nombre = nombre;
@@ -178,9 +179,39 @@ public class Personaje {
 	public void recibeHeridas(int heridas) {
 		this.vida+=heridas;
 	}
+	public int eligeAccion(Habitacion habitacion) {
+		int accionElegida=0;
+		while (acciones>0) {
+			System.out.println("1. Abrir puerta");
+			System.out.println("2. Atacar");
+			System.out.println("3. Consultar enemigos en la habitacion");
+			accionElegida= Integer.parseInt(JOptionPane.showInputDialog("Introduce opcion"));
+			
+		switch (accionElegida) {
+		case 1: if(!habitacion.isAbierta()) {
+			habitacion.abrirPuerta(this);
+			acciones--;
+		}else {
+			System.out.println("Esa habitacion ya ha sido abierta");
+		}
+		
+		break;
+		case 2: atacar(habitacion);
+		acciones--;
+		break;
+		case 3: 
+			System.out.println("En esta habitacion hay "+habitacion.numEnemigosRestantes()+" de raza " +habitacion.habitacion.getFirst().getRaza());
+			habitacion.listadoEnemigos();
+		break;
+		}}
+		return accionElegida;
+	}
 
 	
 	public void atacar(Habitacion habitacion) {
+		if(acciones>0 && atacado==false) {
+			atacado=true;
+			acciones--;
 		LinkedList<Enemigo> enemigosHabitacion=habitacion.habitacion;
 		if(enemigosHabitacion.isEmpty()) {
 			System.out.println("No quedan enemigos en esta habitacion");
@@ -209,7 +240,9 @@ public class Personaje {
 			}
 		//System.out.println(enemigosHabitacion.get(0).getVida()+ " vida "+ enemigosHabitacion.get(0).getRaza());
 		
-	}}
+	}}else{
+		System.out.println("no puedes atacar, no tienes acciones o bien ya has atacado este turno");}
+	}
 
 //	
 	public static void main(String[] args) {
@@ -228,10 +261,15 @@ public class Personaje {
 			System.out.println();
 		}
 		Habitacion roja = new Habitacion();
-		roja.abrirPuerta(barbar);
+	//	roja.abrirPuerta(personaje);
+		barbar.eligeAccion(roja);
+		
 	//	System.out.println(roja.getCantidadEnemigos()+" cantidad enemigos");
-		barbar.atacar(roja);
-		roja.getCantidadEnemigos();
+		System.out.println("=========================");
+
+		System.out.println("===========================");
+		roja.listadoEnemigos();
+		
 		
 		//System.out.println(roja.getCantidadEnemigos());
 	}

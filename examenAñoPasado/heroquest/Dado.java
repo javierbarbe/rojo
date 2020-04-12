@@ -13,7 +13,7 @@ public class Dado {
 		this.valor = valor;
 	}
 	public static void main (String args []) {
-		Dado d6 = new Dado(4);
+		Dado d6 = new Dado(2);
 		System.out.println(d6.getValor());
 	}
 }
