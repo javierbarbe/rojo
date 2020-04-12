@@ -1,6 +1,7 @@
 package heroquest;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -179,65 +180,60 @@ public class Personaje {
 	}
 
 	
-	public void atacar(Enemigo enemigo) {
-		int ataque= this.getDaño();
-		System.out.println(ataque+ " ataque base");
-		int defensa= enemigo.getResistencia();
-		int dado = (int)(Math.random()*4)+1;
-		ataque*=0.3 ;
-		System.out.println(ataque+" ataque reducido factor");
-		ataque+=dado;
-		System.out.println(dado+ " resultado dado");
-		System.out.println(defensa+ " defensa");
-		System.out.println(ataque+ "tirdad mas atributos");
-		System.out.println(enemigo.getVida()+ " vida "+ enemigo.getRaza());
-		int resultado = defensa - ataque;
-		System.out.println(resultado+ " resultado defensa - ataque");
-		if(resultado<=0) {
-			enemigo.setVida(enemigo.getVida()-1);
-		}
-		System.out.println(enemigo.getVida()+ " vida "+ enemigo.getRaza());
-	}
+	public void atacar(Habitacion habitacion) {
+		LinkedList<Enemigo> enemigosHabitacion=habitacion.habitacion;
+		if(enemigosHabitacion.isEmpty()) {
+			System.out.println("No quedan enemigos en esta habitacion");
+		}else {
+			habitacion.numEnemigosRestantes();
+			System.out.println(" hay "+enemigosHabitacion.size()+ " enemigos");
+			int ataque= this.getDaño();
+			System.out.println(ataque+ " ataque base");
+			int defensa= enemigosHabitacion.get(0).getResistencia();
+			int dado = 6;//(int)(Math.random()*4)+1;
+			ataque*=0.3 ;
+			System.out.println(ataque+" ataque reducido factor");
+			ataque+=dado;
+			System.out.println(dado+ " resultado dado");
+			System.out.println(defensa+ " defensa");
+			System.out.println(ataque+ "tirdad mas atributos");
+			System.out.println(enemigosHabitacion.get(0).getVida()+ " vida "+ enemigosHabitacion.get(0).getRaza());
+			int resultado = defensa - ataque;
+			System.out.println(resultado+ " resultado defensa - ataque");
+			if(resultado<=0) {
+				//enemigosHabitacion.remove(0);
+				habitacion.enemigo();
+				habitacion.setCantidadEnemigos(habitacion.numEnemigosRestantes()-1);
+				System.out.println(enemigosHabitacion.size()+ " enemigos quedan");
+				//enemigosHabitacion.get(0).setVida(enemigosHabitacion.get(0).getVida()-1);
+			}
+		//System.out.println(enemigosHabitacion.get(0).getVida()+ " vida "+ enemigosHabitacion.get(0).getRaza());
+		
+	}}
 
-	public void abrirPuerta() {
-		Dado d6 = new Dado(6);
-		Dado d4 = new Dado(4);
-		Enemigo [] habitacion = new Enemigo [d4.getValor()];
-		int resultado=d6.getValor();
-		switch (resultado){
-		case 1: 
-			 for ( int i= 0; i<habitacion.length;i++) {
-				 habitacion[i]=new Enemigo ("esqueleto");
-			 }break;
-		case 2:  for ( int i= 0; i<habitacion.length;i++) {
-			 habitacion[i]=new Enemigo ("goblin");
-		 }break;
-		case 3:  for ( int i= 0; i<habitacion.length;i++) {
-			 habitacion[i]=new Enemigo ("orco");
-		 }break;
-		case 4:  for ( int i= 0; i<habitacion.length;i++) {
-			 habitacion[i]=new Enemigo ("momia");
-		 }break;
-		case 5:  for ( int i= 0; i<habitacion.length;i++) {
-			 habitacion[i]=new Enemigo ("fimir");
-		 }break;
-		}
-	}
+//	
 	public static void main(String[] args) {
-		Personaje mio = new Personaje("Joseu" ,"elfo", "Ladrón");
-		Personaje barbar = new Personaje("Saudumela" ,"humano", "bárbaro");
+//		String nombrePj= JOptionPane.showInputDialog("Dime tu nombre");
+//		String raza = JOptionPane.showInputDialog("Que raza eres");
+//		String oficio= JOptionPane.showInputDialog("Dime tu oficio");
+		//Personaje mio = new Personaje(nombrePj ,raza, oficio);
+		Personaje barbar = new Personaje("Borrego" ,"Humano", "bárbaro");
 		//mio.inicializar();
 		ArrayList <Personaje> lista = new ArrayList<Personaje>();
-		lista.add(mio);
+	//	lista.add(mio);
 		lista.add(barbar);
 		for (Personaje e : lista) {
 			
 			System.out.println(e);
 			System.out.println();
 		}
-		Enemigo orco = new Enemigo ("fimir");
-		barbar.atacar(orco);
-		orco.enemigosAtacan(barbar);
+		Habitacion roja = new Habitacion();
+		roja.abrirPuerta(barbar);
+	//	System.out.println(roja.getCantidadEnemigos()+" cantidad enemigos");
+		barbar.atacar(roja);
+		roja.getCantidadEnemigos();
+		
+		//System.out.println(roja.getCantidadEnemigos());
 	}
 
 }

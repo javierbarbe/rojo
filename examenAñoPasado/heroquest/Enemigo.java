@@ -108,6 +108,9 @@ public class Enemigo {
 		}
 		
 		
+	}public void morir() {
+		this.vida=0;
+		comprobarVida();
 	}
 	public int comprobarVida() {
 		if(this.vida<=0) {

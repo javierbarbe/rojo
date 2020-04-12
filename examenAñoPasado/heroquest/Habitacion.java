@@ -1,19 +1,22 @@
 package heroquest;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Habitacion {
 
 	private boolean abierta = false;
 	private int cantidadEnemigos;
-	ArrayList<Enemigo> habitacion = new ArrayList<>();
+	LinkedList<Enemigo> habitacion = new LinkedList<>();
+	ListIterator <Enemigo> muerto = habitacion.listIterator();
 
-	public void abrirPuerta() {
+	public void abrirPuerta(Personaje personaje) {
 		if (!abierta) {
 			Dado d6 = new Dado(6);
 			Dado d4 = new Dado(4);
 			abierta = true;
-			int resultado = d6.getValor();
+			int resultado = d6.getValor();// pongo un valor fijo de pruebas
 			switch (resultado) {
 			case 1:
 				for (int i = 0; i < d4.getValor(); i++) {
@@ -45,16 +48,67 @@ public class Habitacion {
 		}
 	}
 
-	public void comprobarMuertes() {
-		for (Enemigo e : habitacion) {
-			if (e.getVida() <= 0) {
-				habitacion.remove(habitacion.size());
-			}
+	protected boolean isAbierta() {
+		return abierta;
+	}
+
+	protected void setAbierta(boolean abierta) {
+		this.abierta = abierta;
+	}
+	public void enemigo() {
+		if(habitacion.size()!=0) {
+		  habitacion.remove(0);}
+		else {
+			System.out.println("No quedan enemigos");
+			
 		}
 	}
+	protected LinkedList <Enemigo> listaEnemigos(){
+		while(muerto.hasNext()) {
+			System.out.println(muerto.next().getVida());
+		}
+		return habitacion;
+	}
+	protected int numEnemigosRestantes() {
+		return cantidadEnemigos;
+	}
+	protected int getCantidadEnemigos() {
+	//	comprobarMuertes();
+		for (Enemigo e : habitacion) {
+			System.out.println(e);
+			System.out.println();
+		}
+		return cantidadEnemigos;
+	}
+
+	protected void setCantidadEnemigos(int cantidadEnemigos) {
+		this.cantidadEnemigos = cantidadEnemigos;
+	}
+
+//	public void comprobarMuertes() {
+//
+//		while (muerto.hasNext()) {
+//			if (muerto.next().getVida() <= 0) {
+//				habitacion.remove(0); //elimina el ultimo al coger el tamaño de la lista de monstruos
+//				cantidadEnemigos--;
+//			}
+//		}
+//		System.out.println(cantidadEnemigos);
+//	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Habitacion verde = new Habitacion();
+		Personaje javi = new Personaje("jos", "humano", "bárbaro");
+		verde.abrirPuerta(javi);
+	//	verde.comprobarMuertes();
+		javi.atacar(verde);
+		while(verde.muerto.hasNext()) {
+			System.out.println(verde.muerto.next());
+		}
+		//verde.listaEnemigos();
+//		System.out.println(verde.getCantidadEnemigos());
+		
 
 	}
 
