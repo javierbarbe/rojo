@@ -8,8 +8,8 @@ public class Habitacion {
 
 	private boolean abierta = false;
 	private int cantidadEnemigos;
-	LinkedList<Enemigo> habitacion = new LinkedList<>();
-	ListIterator <Enemigo> muerto = habitacion.listIterator();
+	LinkedList<Enemigo> listaMonstruosHabitacion = new LinkedList<>();
+	ListIterator <Enemigo> iteradorMonstruo = listaMonstruosHabitacion.listIterator();
 
 	public void abrirPuerta(Personaje personaje) {
 		if (!abierta) {
@@ -17,40 +17,41 @@ public class Habitacion {
 			Dado d4 = new Dado(4);
 			abierta = true;
 			int resultado = d6.getValor();
+			int cantidad=  d4.getValor();
 			System.out.println("tirada: "+resultado);// pongo un valor fijo de pruebas
 			switch (resultado) {
 			case 1:
-				for (int i = 0; i < d4.getValor(); i++) {
-					habitacion.add(new Enemigo("esqueleto"));
+				for (int i = 0; i <cantidad; i++) {
+					listaMonstruosHabitacion.add(new Enemigo("esqueleto"));
 				}
 				break;
 			case 2:
-				for (int i = 0; i < d4.getValor(); i++) {
-					habitacion.add(new Enemigo("goblin"));
+				for (int i = 0; i < cantidad; i++) {
+					listaMonstruosHabitacion.add(new Enemigo("goblin"));
 				}
 				break;
 			case 3:
-				for (int i = 0; i < d4.getValor(); i++) {
-					habitacion.add(new Enemigo("orco"));
+				for (int i = 0; i < cantidad; i++) {
+					listaMonstruosHabitacion.add(new Enemigo("orco"));
 				}
 				break;
 			case 4:
-				for (int i = 0; i < d4.getValor(); i++) {
-					habitacion.add(new Enemigo("momia"));
+				for (int i = 0; i < cantidad; i++) {
+					listaMonstruosHabitacion.add(new Enemigo("momia"));
 				}
 				break;
 			case 5:
-				for (int i = 0; i < d4.getValor(); i++) {
-					habitacion.add(new Enemigo("fimir"));
+				for (int i = 0; i < cantidad; i++) {
+					listaMonstruosHabitacion.add(new Enemigo("fimir"));
 				}
 				break;
 			case 6:
-				for (int i = 0; i < d4.getValor(); i++) {
-					habitacion.add(new Enemigo("goblin"));
+				for (int i = 0; i < cantidad; i++) {
+					listaMonstruosHabitacion.add(new Enemigo("goblin"));
 				}
 				break;
 			}
-			cantidadEnemigos = habitacion.size();
+			cantidadEnemigos = listaMonstruosHabitacion.size();
 		}
 	}
 
@@ -61,35 +62,41 @@ public class Habitacion {
 	protected void setAbierta(boolean abierta) {
 		this.abierta = abierta;
 	}
-	public void enemigo() {
-		if(habitacion.size()!=0) {
-		  habitacion.remove(0);}
+	public void matarEnemigo() {
+		if(listaMonstruosHabitacion.size()!=0) {
+		  listaMonstruosHabitacion.remove(0);}
 		else {
 			System.out.println("No quedan enemigos");
 			
 		}
 	}
-	protected LinkedList <Enemigo> listaEnemigos(){
-		while(muerto.hasNext()) {
-			System.out.println(muerto.next().getVida());
-		}
-		return habitacion;
+	public LinkedList <Enemigo> listaEnemigos(){
+//		while(iteradorMonstruo.hasNext()) {
+//			System.out.println(iteradorMonstruo.next().getVida());
+//		}
+		return listaMonstruosHabitacion;
 	}
 	protected int numEnemigosRestantes() {
 		if(!abierta || cantidadEnemigos==0) {
-			System.out.println("0");
+			System.out.println("0 enemigos restantes");
 			return 0;
 		}else {
 		return cantidadEnemigos;
 		}
 	}
+	
+	protected void enemigoAtributos() {
+		System.out.println(listaMonstruosHabitacion.get(0));
+	}
 	protected void listadoEnemigos() {
 	//	comprobarMuertes();
-		for (Enemigo e : habitacion) {
+		for (Enemigo e : listaMonstruosHabitacion) {
 			System.out.println(e);
 			System.out.println();
 		}
-		
+		if(listaMonstruosHabitacion.size()==0) {
+			System.out.println("No quedan enemigos en estas dependencias");
+		}
 	}
 
 	protected void setCantidadEnemigos(int cantidadEnemigos) {
@@ -114,8 +121,8 @@ public class Habitacion {
 		verde.abrirPuerta(javi);
 	//	verde.comprobarMuertes();
 		javi.atacar(verde);
-		while(verde.muerto.hasNext()) {
-			System.out.println(verde.muerto.next());
+		while(verde.iteradorMonstruo.hasNext()) {
+			System.out.println(verde.iteradorMonstruo.next().getRaza());
 		}
 		//verde.listaEnemigos();
 //		System.out.println(verde.getCantidadEnemigos());

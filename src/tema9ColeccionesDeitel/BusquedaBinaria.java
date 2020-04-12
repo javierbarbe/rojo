@@ -37,6 +37,7 @@ public class BusquedaBinaria {
 		int frequenciarojo= Collections.frequency(lista, "rojo");
 		System.out.println(frecuencia);
 		System.out.println(frequenciarojo);
+		
 
 	}
 public static void busqueda(List <String> lista, String clave) {

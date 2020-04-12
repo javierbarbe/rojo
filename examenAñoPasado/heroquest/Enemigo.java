@@ -95,16 +95,18 @@ public class Enemigo {
 			int defensa= personaje.getResistencia();
 			
 			Dado d4 = new Dado(4);
-			System.out.println(d4.getValor()+ "resultado tirada monstruo");
-			System.out.println(ataque+ "ataque monstruo");
-			System.out.println(defensa + " defensa heroe");
-			System.out.println(personaje.getVida()+ " vida previa");
+			System.out.print("Resultado tirada monstruo= "+d4.getValor() );
+			System.out.print("; Ataque monstruo= "+ataque);
+			System.out.print("; Defensa heroe= "+defensa );
+			System.out.print("; Vida previa= "+personaje.getVida());
 			ataque=ataque +d4.getValor();
 			if ( ataque >=defensa) {
-				
+				if(defensa==ataque) {
+					personaje.recibeHeridas(-1);
+				}
 				personaje.recibeHeridas(defensa-ataque);
 			}
-			System.out.println(personaje.getVida()+ " vida resultante");
+			System.out.println( "; Vida resultante="+personaje.getVida());
 		}
 		
 		
