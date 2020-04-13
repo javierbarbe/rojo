@@ -16,12 +16,17 @@ public class MazoTesoros {
 	}
 	
 
-	public CartaTesoros robarCarta() {
+	public CartaTesoros robarCarta(Habitacion habitacion) {
 		if (!mazo.isEmpty()) {
 			CartaTesoros cartaDevuelta = mazo.getFirst();
-			mazo.remove();
-			System.out.println(cartaDevuelta.getValor());
-			return cartaDevuelta;
+			if(habitacion.isAbierta()&& habitacion.listaMonstruosHabitacion.isEmpty()) {
+				mazo.remove();
+				System.out.println(cartaDevuelta.getValor());
+				return cartaDevuelta;
+			}else {
+				cartaDevuelta.cartaVacia();
+				return cartaDevuelta;
+			}
 		} else {
 			System.out.println("No quedan cartas que robar");
 			CartaTesoros cartaVacia = new CartaTesoros();

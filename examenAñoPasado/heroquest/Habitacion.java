@@ -8,9 +8,11 @@ public class Habitacion {
 
 	private boolean abierta = false;
 	private int cantidadEnemigos;
-	LinkedList<Enemigo> listaMonstruosHabitacion = new LinkedList<>();
+	 static LinkedList<Enemigo> listaMonstruosHabitacion = new LinkedList<>();
 	ListIterator <Enemigo> iteradorMonstruo = listaMonstruosHabitacion.listIterator();
-
+	public Habitacion() {
+		
+	}
 	public void abrirPuerta(Personaje personaje) {
 		if (!abierta) {
 			Dado d6 = new Dado(6);
@@ -77,16 +79,32 @@ public class Habitacion {
 		return listaMonstruosHabitacion;
 	}
 	protected int numEnemigosRestantes() {
-		if(!abierta || cantidadEnemigos==0) {
-			System.out.println("0 enemigos restantes");
+		if(!abierta) {
+			System.out.println("La habitacion esta cerrada aun");
+		}if ( listaMonstruosHabitacion.size()==0) {
+			System.out.println("Los has matado a todos");
 			return 0;
 		}else {
 		return cantidadEnemigos;
 		}
 	}
+	public String toString() {
+		if(!this.abierta) {
+			return "no se ha abierto aun esta habitacion";
+		}
+		if(listaMonstruosHabitacion.isEmpty()) {
+			return "La habitacion ha sido vaciada";
+		}
+		return " la habitacion contiene  " + this.cantidadEnemigos+ " monstruos de raza "+ 
+	this.listaMonstruosHabitacion.getFirst().getRaza();
+	}
 	
 	protected void enemigoAtributos() {
-		System.out.println(listaMonstruosHabitacion.get(0));
+		for (Enemigo e : listaMonstruosHabitacion) {
+			
+			System.out.println(e);
+			System.out.println();
+		}
 	}
 	protected void listadoEnemigos() {
 	//	comprobarMuertes();
@@ -102,7 +120,15 @@ public class Habitacion {
 	protected void setCantidadEnemigos(int cantidadEnemigos) {
 		this.cantidadEnemigos = cantidadEnemigos;
 	}
+public Enemigo añadirMonstruo(Enemigo e) {
+	Habitacion.listaMonstruosHabitacion.addLast(e);
+//	this.numEnemigosRestantes()
+	//listaEnemigos().add(e);
+	//this.listaEnemigos().add(e);
+	this.cantidadEnemigos+=1;
 
+	return e;
+}
 //	public void comprobarMuertes() {
 //
 //		while (muerto.hasNext()) {
@@ -120,14 +146,29 @@ public class Habitacion {
 		Personaje javi = new Personaje("jos", "humano", "bárbaro");
 		verde.abrirPuerta(javi);
 	//	verde.comprobarMuertes();
-		javi.atacar(verde);
-		while(verde.iteradorMonstruo.hasNext()) {
-			System.out.println(verde.iteradorMonstruo.next().getRaza());
+		Enemigo.consultarTodasRazas();
+		//Enemigo.consultarTodasRazas();
+		System.out.println();
+		//System.out.println(Enemigo.getTodosDaños());
+		verde.enemigoAtributos();
+		javi.eligeAccion(verde);
+		Enemigo k = new Enemigo ("goblin");
+		verde.añadirMonstruo(k);
+		while (k.getVida()>0) {
+			k.enemigosAtacan(javi);
+			javi.eligeAccion(verde);
 		}
-		//verde.listaEnemigos();
+		System.out.println(Habitacion.listaMonstruosHabitacion.size());
+		System.out.println(verde.cantidadEnemigos);
+		javi.eligeAccion(verde);
+		javi.eligeAccion(verde);
+		
 //		System.out.println(verde.getCantidadEnemigos());
 		
 
+	}
+	protected int getCantidadEnemigos() {
+		return cantidadEnemigos;
 	}
 
 }

@@ -23,8 +23,8 @@ public class Ej4LeerYOrdenarAlfabeticamente {
 		// TODO Apéndice de método generado automáticamente
 		
 		try {
-			BufferedReader br =  new BufferedReader(new FileReader("leerFicheros/frutas.txt"));
-			BufferedWriter bw = new BufferedWriter(new FileWriter("leerFicheros/frutas_sort.txt"));
+			BufferedReader br =  new BufferedReader(new FileReader("leerFicheros/ICMP.txt"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("leerFicheros/ICMPword.docx"));
 			ArrayList <String> retahila= new ArrayList<String>();
 			String linea="";
 					while(linea!=null) {
@@ -32,12 +32,12 @@ public class Ej4LeerYOrdenarAlfabeticamente {
 						retahila.add(linea);
 						linea=br.readLine();
 					}
-					retahila.remove(0);
+					//retahila.remove(0);
 					
 			
 			
 			
-			Collections.sort(retahila);
+			//Collections.sort(retahila);
 			for (String o : retahila) {
 				System.out.println(o);
 				bw.write(o+"\n");

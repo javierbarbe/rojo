@@ -9,7 +9,7 @@ public class CartaTesoros {
 	int monedas;
 	public CartaTesoros() {
 		Dado d6= new Dado (6);
-		valor=valores[1];
+		valor=valores[d6.getValor()];
 	//	System.out.println(d6.getValor()+ " tirada al azar al sacar carta del mazo");
 //		switch (d6.getValor()) {
 //		case 1: Dado d62 = new Dado(6);

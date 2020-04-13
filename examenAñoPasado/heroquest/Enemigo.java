@@ -1,13 +1,43 @@
 package heroquest;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
+import cojones.imprime;
+
 public class Enemigo {
-	String  []	razasEnemigos= {"Orco", "Goblin", "Momia", "Esqueleto", "Fimir"};
+	static String  []	razasEnemigos= {"Orco", "Goblin", "Momia", "Esqueleto", "Fimir"};
+	
+	
 	private String raza;
 	private int vida=1,magia,daño,resistencia,movimiento;
 	private boolean razaEnemigoExiste=false;
+	private static String []todosDaños= new String [razasEnemigos.length];
+	private static String []todosMov= new String [razasEnemigos.length];
+	private static String []todosMagia= new String [razasEnemigos.length];
+	private static String []todosResistencia= new String [razasEnemigos.length];
+	//private  static String todasLasRazas="",todosDaños="",todosResistencias="", todosMovimientos="";
 	public Enemigo(String raza) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("examenAñoPasado/heroquest/monstruos.txt"));
+			String linea="";
+			ArrayList <String> contador = new ArrayList<>();
+			while(linea!=null) {
+				linea=br.readLine();
+				contador.add(linea);
+				
+			}System.out.println(contador.size());
+			int nula= contador.size();
+	
+			contador.remove(nula-1);
+			System.out.println(contador);
+		}
+			catch (Exception e) {
+				System.out.println("El archivo de enemigos no se encuentra");
+			}
 		this.raza=raza;
 		existeRaza();
 		inicializar();
@@ -34,13 +64,13 @@ public class Enemigo {
 //		}
 		if(this.raza.equalsIgnoreCase("orco")) { //8pts
 			resistencia=4;
-			daño=3;
+			daño=4;
 			magia=0;
 			movimiento=6;
 		}
 		if(this.raza.equalsIgnoreCase("goblin")) { //8pts
 			resistencia=2;
-			daño=2;
+			daño=3;
 			magia=0;
 			movimiento=8;
 		}
@@ -90,29 +120,42 @@ public class Enemigo {
 
 	public void enemigosAtacan(Personaje personaje) {
 		if(comprobarVida()>0) {
-			gritar();
-			int ataque = this.getDaño();
-			int defensa= personaje.getResistencia();
-			
-			Dado d4 = new Dado(4);
-			System.out.print("Resultado tirada monstruo= "+d4.getValor() );
-			System.out.print("; Ataque monstruo= "+ataque);
-			System.out.print("; Defensa heroe= "+defensa );
-			System.out.print("; Vida previa= "+personaje.getVida());
-			ataque=ataque +d4.getValor();
-			if ( ataque >=defensa) {
-				if(defensa==ataque) {
-					personaje.recibeHeridas(-1);
+			if(movimiento>=personaje.getDistancia()) {
+				personaje.setDistancia(0);
+				gritar();
+				int ataque = this.getDaño();
+				int defensa= personaje.getResistencia();
+				
+				Dado d4 = new Dado(4);
+				System.out.print("Resultado tirada monstruo= "+d4.getValor() );
+				System.out.print("; Ataque monstruo= "+ataque);
+				System.out.print("; Defensa heroe= "+defensa );
+				System.out.print("; Vida previa= "+personaje.getVida());
+				ataque=ataque +d4.getValor();
+				if ( ataque >=defensa) {
+					if(defensa==ataque) {
+						personaje.recibeHeridas(-1);
+					}
+					personaje.recibeHeridas(defensa-ataque);
+				}if(personaje.getVida()<1) {
+					System.out.println("Has muerto!! \nFIN DE JUEGO");
+					System.exit(0);
 				}
-				personaje.recibeHeridas(defensa-ataque);
+				System.out.println( "; Vida resultante="+personaje.getVida());
+			}else {
+				int distanciaHeroe=personaje.getDistancia();
+				int diferencia =distanciaHeroe-this.movimiento;
+				personaje.setDistancia(diferencia);
+				System.out.println("El heroe se ha alejado demasiado, ahora estas a "+diferencia+" casillas");
 			}
-			System.out.println( "; Vida resultante="+personaje.getVida());
 		}
-		
 		
 	}public void morir() {
 		this.vida=0;
 		comprobarVida();
+		if(Habitacion.listaMonstruosHabitacion.size()>0) {
+		Habitacion.listaMonstruosHabitacion.remove();}
+		
 	}
 	public int comprobarVida() {
 		if(this.vida<=0) {
@@ -125,7 +168,48 @@ public class Enemigo {
 		}
 		return vida;
 	}
-	
+	public static void consultarTodasRazas() {
+		for ( int j=0; j<1;j++) {
+			for (int i = 0; i<razasEnemigos.length;i++) {
+				//todasLasRazas= todasLasRazas.concat(razasEnemigos[i]+"\t");
+				Enemigo n = new Enemigo(razasEnemigos[i]);
+			//	String dañ= 
+				todosDaños[i]=Integer.toString(n.daño);
+				todosMagia[i]= Integer.toString(n.magia);
+				todosResistencia[i]= Integer.toString(n.resistencia);
+				todosMov[i]=Integer.toString(n.movimiento);
+			}
+			System.out.println("razas");
+			imprimirArrayString(razasEnemigos,8);
+			System.out.println("daños");
+			imprimirArrayString(todosDaños);
+			System.out.println("Magia");
+			imprimirArrayString(todosMagia);
+			System.out.println("resistencia");
+			imprimirArrayString(todosResistencia);
+			System.out.println("Movimiento");
+			imprimirArrayString(todosMov);
+		}
+	}
+//	public void imprimirTodasLasRazas() {
+//		imprimirArrayString(todosDaños);
+//	}
+	public static void imprimirArrayString(String [] recibido,int dist) {
+		for ( String i: recibido) {
+			switch (dist) {
+			case 8: 	System.out.printf("%7s  ",i);
+			break;
+			}
+		}System.out.println();
+	}
+	public static void imprimirArrayString(String [] recibido) {
+		for ( String i: recibido) {
+			
+			System.out.printf("%7s  ",i);
+			
+			
+		}System.out.println();
+	}
 	public String toString() {
 		return "Raza "+this.raza +"\n===========\nDaño "+this.daño+ "\nResistencia "+ this.resistencia+ "\nMagia "+this.magia+ 
 				 "\nMovimiento "+this.movimiento ;
