@@ -152,7 +152,7 @@ public class Personaje {
 		}
 	}
 	
-	public void moverse() {
+	public void moverse(Habitacion habitacion) {
 		if(acciones>0 && !moverse) {
 		moverse=true;
 		Dado d61= new Dado(6);
@@ -160,7 +160,7 @@ public class Personaje {
 		movimiento = d61.getValor()+d62.getValor();
 		distancia=movimiento;
 	
-		if(Habitacion.listaMonstruosHabitacion.size()>0) {
+		if(habitacion.listaMonstruosHabitacion.size()>0) {
 			System.out.println("Hay monstruos en la habitacion");
 			System.out.println("Te has alejado de ellos "+movimiento+ " casillas");
 		}
@@ -283,11 +283,15 @@ public class Personaje {
 		break;
 		case 9: Enemigo.consultarTodasRazas();
 		break;
-		case 0:if(habitacion.getCantidadEnemigos()>0) {
+		case 0://if(habitacion.getCantidadEnemigos()>0) {
+			if(!habitacion.listaEnemigos().isEmpty()) {
 				ataque(habitacion.listaEnemigos().getFirst(),habitacion);
+				}else {
+					System.out.println("restan "+habitacion.listaEnemigos().size()+" enemigos");
 				}
+			//}
 		break;
-		case 10: moverse();
+		case 10: moverse(habitacion);
 		}
 		}this.acciones=2;
 		this.atacado=false;
@@ -299,10 +303,10 @@ public class Personaje {
 		if(!habitacion.isAbierta()) {
 			System.out.println("La habitacion aun continua cerrada");
 			}else {
-				if(!Habitacion.listaMonstruosHabitacion.isEmpty()) {
-					System.out.println("En esta habitacion hay "+Habitacion.listaMonstruosHabitacion.size()+" monstruos: "
+				if(!habitacion.listaMonstruosHabitacion.isEmpty()) {
+					System.out.println("En esta habitacion hay "+habitacion.listaMonstruosHabitacion.size()+" monstruos: "
 							);// +Habitacion.listaMonstruosHabitacion.getFirst().getRaza());
-					muestraEnemigos();
+					muestraEnemigos(habitacion);
 					habitacion.enemigoAtributos();
 				}else {
 				System.out.println("En esta habitacion no quedan enemigos");
@@ -311,8 +315,8 @@ public class Personaje {
 		
 	}
 	
-	public void muestraEnemigos() {
-		for (Enemigo e :Habitacion.listaMonstruosHabitacion) {
+	public void muestraEnemigos(Habitacion habitacion) {
+		for (Enemigo e :habitacion.listaMonstruosHabitacion) {
 			System.out.println(e.getRaza());
 		}
 	}
@@ -323,7 +327,7 @@ public class Personaje {
 	
 	public CartaTesoros robarCarta(Habitacion habitacion) {
 		CartaTesoros robada= mazo.robarCarta(habitacion);
-		if(habitacion.isAbierta() && Habitacion.listaMonstruosHabitacion.isEmpty()) {
+		if(habitacion.isAbierta() && habitacion.listaMonstruosHabitacion.isEmpty()) {
 			acciones--;
 		if(robada.getValor().equalsIgnoreCase("pocion curativa")) {
 			this.saludExtra+=4;
@@ -331,12 +335,12 @@ public class Personaje {
 		} 
 		if(robada.getValor().equalsIgnoreCase("oro")) {
 			Dado d62 = new Dado(6);
-			Cartastesoro++;
+			//Cartastesoro++;
 			this.oro += d62.getValor()*10 ;
 		}
 		if(robada.getValor().equals("monstruo errante")) {
 			//monstruoErrante=true;
-			añadirErrante();
+			añadirErrante(habitacion);
 			
 //			Enemigo errante = new Enemigo("goblin");
 //			habitacion.añadirMonstruo(errante);
@@ -360,9 +364,10 @@ public class Personaje {
 		}
 	}
 	
-	public void añadirErrante() {
-		Enemigo errante= new Enemigo ("goblin");
-		Habitacion.listaMonstruosHabitacion.add(errante);
+	public void añadirErrante(Habitacion habit) {
+		Dado d5 = new Dado(5);
+		Enemigo errante= new Enemigo (Enemigo.razasEnemigos[d5.getValor()-1]);
+		habit.listaMonstruosHabitacion.add(errante);
 	}
 	
 	public void consultarRiquezas() {
@@ -370,8 +375,8 @@ public class Personaje {
 	}
 
 	public void ataque (Enemigo e, Habitacion hab) {
-		System.out.println(Habitacion.listaMonstruosHabitacion.size());
-		e.morir();
+		System.out.println(hab.listaMonstruosHabitacion.size());
+		e.morir(hab);
 	}
 	
 	
@@ -380,13 +385,13 @@ public class Personaje {
 		if(acciones>0 && atacado==false) {
 			//atacado=true;
 			acciones--;
-			LinkedList<Enemigo> enemigosHabitacion=Habitacion.listaMonstruosHabitacion;	
+			LinkedList<Enemigo> enemigosHabitacion=habitacion.listaMonstruosHabitacion;	
 		
 		if(monstruoErrante) {
 			Enemigo errante = new Enemigo("goblin");
 			monstruoErrante=false;
 		//enemigosHabitacion.add
-		habitacion.añadirMonstruo(errante);
+		habitacion.añadirMonstruo(errante,habitacion);
 		} //fin if(monstruoErrante)
 		if(enemigosHabitacion.isEmpty()) {
 			System.out.println("No quedan enemigos en esta habitacion");
@@ -395,7 +400,7 @@ public class Personaje {
 		else {
 			if(distancia<1) {
 			habitacion.numEnemigosRestantes();
-			muestraEnemigos();
+			muestraEnemigos(habitacion);
 			int enemigoAtacado= Integer.valueOf(JOptionPane.showInputDialog("A qué enemigo atacas"));
 			System.out.println(" hay "+habitacion.listaMonstruosHabitacion.size()+ " enemigos");
 			int ataque= this.getDaño();
@@ -459,24 +464,7 @@ for ( CartaTesoros c : mazo.mazo) {
 	System.out.println(c);
 }
 		System.out.println("La mazmorra tiene "+d5.getValor()+ " habitaciones");
-	//	System.out.println(roja.getCantidadEnemigos()+" cantidad enemigos");
-		System.out.println("=========================");
-
-		System.out.println("===========================");
-		//roja.listadoEnemigos();
-		
-		while(roja.numEnemigosRestantes()>=1 || !roja.isAbierta()) { // esto no da error... sin embargo si el for lo hago con
-				//roja.listaEnemigos(); casca por todos lados
-			barbar.eligeAccion(roja);
-			for (Enemigo e : roja.listaEnemigos()) {
-				e.enemigosAtacan(barbar);
-			}
-			
-		}System.out.println("Has matado "+barbar.experiencia + " enemigos");
-		System.out.println(barbar.saludExtra+ " estos son los puntos de salud extra conseguidos");
-		System.out.println(barbar.oro+ " este es el oro conseguido");
-		System.out.println(barbar.Cartastesoro+ " el numero de tesoros conseguidos");
-		barbar.eligeAccion(roja);
+	
 		//System.out.println(roja.getCantidadEnemigos());
 	}
 

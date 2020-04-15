@@ -8,7 +8,7 @@ public class Habitacion {
 
 	private boolean abierta = false;
 	private int cantidadEnemigos;
-	 static LinkedList<Enemigo> listaMonstruosHabitacion = new LinkedList<>();
+	  LinkedList<Enemigo> listaMonstruosHabitacion = new LinkedList<>();
 	ListIterator <Enemigo> iteradorMonstruo = listaMonstruosHabitacion.listIterator();
 	public Habitacion() {
 		
@@ -66,7 +66,8 @@ public class Habitacion {
 	}
 	public void matarEnemigo() {
 		if(listaMonstruosHabitacion.size()!=0) {
-		  listaMonstruosHabitacion.remove(0);}
+		  listaMonstruosHabitacion.remove(0);
+		  cantidadEnemigos--;}
 		else {
 			System.out.println("No quedan enemigos");
 			
@@ -120,8 +121,8 @@ public class Habitacion {
 	protected void setCantidadEnemigos(int cantidadEnemigos) {
 		this.cantidadEnemigos = cantidadEnemigos;
 	}
-public Enemigo añadirMonstruo(Enemigo e) {
-	Habitacion.listaMonstruosHabitacion.addLast(e);
+public Enemigo añadirMonstruo(Enemigo e, Habitacion hab) {
+	hab.listaMonstruosHabitacion.addLast(e);
 //	this.numEnemigosRestantes()
 	//listaEnemigos().add(e);
 	//this.listaEnemigos().add(e);
@@ -151,15 +152,23 @@ public Enemigo añadirMonstruo(Enemigo e) {
 		System.out.println();
 		//System.out.println(Enemigo.getTodosDaños());
 		verde.enemigoAtributos();
-		javi.eligeAccion(verde);
+		System.out.println(verde.listaMonstruosHabitacion.size());
+		//javi.eligeAccion(verde);
+		System.out.println(verde.listaMonstruosHabitacion.size());
 		Enemigo k = new Enemigo ("goblin");
-		verde.añadirMonstruo(k);
-		while (k.getVida()>0) {
-			k.enemigosAtacan(javi);
-			javi.eligeAccion(verde);
+		
+		verde.añadirMonstruo(k, verde);
+		System.out.println(verde.listaMonstruosHabitacion.size()+" hay este numero de monstruos");
+		while(verde.listaEnemigos().size()>0) {
+			for(Enemigo en: verde.listaMonstruosHabitacion) {
+				//if (en.getVida()>0) {
+				en.enemigoAtacan(javi);
+			}
+				javi.eligeAccion(verde);
 		}
-		System.out.println(Habitacion.listaMonstruosHabitacion.size());
-		System.out.println(verde.cantidadEnemigos);
+	//	}
+		System.out.println(verde.listaMonstruosHabitacion.size());
+		System.out.println(verde.cantidadEnemigos + " cantidad ENemigos");
 		javi.eligeAccion(verde);
 		javi.eligeAccion(verde);
 		

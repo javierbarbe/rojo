@@ -118,7 +118,7 @@ public class Enemigo {
 		this.daño = daño;
 	}
 
-	public void enemigosAtacan(Personaje personaje) {
+	public void enemigoAtacan(Personaje personaje) {
 		if(comprobarVida()>0) {
 			if(movimiento>=personaje.getDistancia()) {
 				personaje.setDistancia(0);
@@ -150,11 +150,13 @@ public class Enemigo {
 			}
 		}
 		
-	}public void morir() {
+	}public void morir(Habitacion habitacion) {
 		this.vida=0;
 		comprobarVida();
-		if(Habitacion.listaMonstruosHabitacion.size()>0) {
-		Habitacion.listaMonstruosHabitacion.remove();}
+		if(habitacion.listaMonstruosHabitacion.size()>0){
+			habitacion.listaMonstruosHabitacion.remove();
+			habitacion.setCantidadEnemigos(habitacion.getCantidadEnemigos()-1);
+		}
 		
 	}
 	public int comprobarVida() {
