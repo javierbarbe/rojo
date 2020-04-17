@@ -6,7 +6,7 @@ public class Dado {
 	public Dado (int cantCaras) 	{
 		valor=(int)(Math.random()*cantCaras)+1;
 	}
-	protected int getValor() {
+	public int getValor() {
 		return valor;
 	}
 	protected void setValor(int valor) {
