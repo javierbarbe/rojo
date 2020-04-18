@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 import heroquest.Dado;
 
 public class Jugador {
+	private int casillaActual=0,movimiento;
+	static Pregunta prfinal= new Pregunta();
 	String [] preguntasArray;
 	Scanner sc = new Scanner (System.in);
  private String nombre="";
@@ -27,10 +29,67 @@ protected void setNombre(String nombre) {
 			//e.printStackTrace();
 		}
 	}
-	public Pregunta preguntar() {
-		Pregunta o = new Pregunta();
-		return o;
+//	public Pregunta preguntar(String categoria) {
+//	
+//		if (categoria.equals("nombres")) {
+//			String pregunta= preguntasNombres[contadorPreguntasNombres];
+//			System.out.println(pregunta);
+//			System.out.println("Respuesta?");
+//			String respuesta = sc.nextLine();
+//			if(respuesta.equalsIgnoreCase(pregNombres.get(pregunta))){
+//				System.out.println("respuesta correcta");
+//				contadorPreguntasNombres++;
+//			}
+//			else {
+//				System.out.println("nooooooooooooooooooooo incorrecto");
+//			}
+//		}
+//		if(categoria.equals("lugares")) {
+//			String pregunta=soloPreguntasLugares[contadorPreguntasLugares];
+//			System.out.println(pregunta);
+//			System.out.println("Respuesta?");
+//			String respuesta = sc.nextLine();
+//			System.out.println(pregLugares.get(pregunta));
+//			if(respuesta.equalsIgnoreCase(pregLugares.get(pregunta))){
+//				System.out.println("respuesta correcta");
+//				contadorPreguntasLugares++;
+//			}
+//			else {
+//				System.out.println("nooooooooooooooooooooo incorrecto");
+//			}
+//		}
+//		if(categoria.equals("acciones")) {
+//			String pregunta=soloPreguntasAcciones[contadorPreguntasAcciones];
+//			System.out.println(pregunta);
+//			System.out.println("Respuesta?");
+//			String respuesta = sc.nextLine();
+//			System.out.println(pregAcciones.get(pregunta));
+//			if(respuesta.equalsIgnoreCase(pregAcciones.get(pregunta))){
+//				System.out.println("respuesta correcta");
+//				contadorPreguntasAcciones++;
+//			}
+//			else {
+//				System.out.println("nooooooooooooooooooooo incorrecto");
+//			}
+//		}
+//	}
+	
+	public boolean moverse() { // devuelve true si el acierto es correcto
+							   //cada vez que se ejecuta genera una tirada
+		boolean acierto=false;
+		Dado d6mov= new Dado(6); // de 1 a 6 
+		casillaActual+=d6mov.getValor();
+		while(casillaActual>3) {
+			casillaActual/=3;
+		}
+	
+		acierto=prfinal.preguntar(prfinal.categorias[casillaActual]);
+		
+		return acierto;
 	}
+	
+	
+	
 	
 	
 	public void responder() {
