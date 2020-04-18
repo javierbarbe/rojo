@@ -1,6 +1,7 @@
 package nuevisimo;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,112 +11,133 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Pregunta {
+	//-----------------------controladores de fin de preguntas-------------------------------------------
+	boolean finPreguntasMusica=false,finPreguntasNombres=false, 
+			finPreguntasLugares=false, finPreguntasAcciones=false,
+			finPreguntasTodas=false;
+	
+	int contadorPreguntasNombres = 0, contadorPreguntasLugares = 0,
+			contadorPreguntasAcciones = 0, contadorPreguntasMusica=0;
+	// ******************************************
+	
 	boolean correcta = false;
-	TacoPreguntas t3 = new TacoPreguntas();
 	Scanner sc = new Scanner(System.in);
-	String[] categorias = { "nombres", "lugares", "acciones", "nombres", "historia" };
-	HashMap<String, String> tacoPreguntas = new HashMap<>();
-	// genero los hashmap donde almacenar preguntas y sus respuestas//
+	//String[] categorias = { "nombres", "lugares", "acciones",  "musica" };
+	String[] categorias = { "nombres", "musica", "musica",  "musica" };
+	ArrayList <String> categorias2= new ArrayList<>();
+
+	// --------------genero los hashmap donde almacenar preguntas y sus respuestas//---------------
+	
 	HashMap<String, String> pregNombres = new HashMap<>();
 	HashMap<String, String> pregPersonajes = new HashMap<>();
 	HashMap<String, String> pregAcciones = new HashMap<>();
-	HashMap<String, String> pregLugares = t3.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasLugares");
-	// genero los arraylist en los que almaceno solamente las preguntas// ( para
-	// poder usarlas como key y comprobar si la respuesta es correcta)
+	HashMap<String, String> pregLugares = new HashMap<>();
+	HashMap<String, String> pregMusica = new HashMap<>();
+	
+	//*************************************************
+	
+	
+	//----------------------- Arrays con solamente las preguntas----------------------------
+	// paso las listas de preguntas a arrays ... ¿podria hacerse con un iterador??
+		// al accederlo mediante indices me es mas facil con un aarray
+	
+		String[] soloPreguntasAcciones ;//= prAcciones.toArray(new String[0]);
+		String[] soloPreguntasLugares;// = prLugares.toArray(new String[0]);
+		String[] soloPreguntasNombres ; //= prNombres.toArray(new String[0]);
+		String[] soloPreguntasMusica;
+		String categoria;
+		
+	// **********************************************
+		
+	
+	//-- -------genero los arraylist en los que almaceno solamente las preguntas// ( para --------------------
+	//---------------- poder usarlas como key y comprobar si la respuesta es correcta)
 	ArrayList<String> prfalladas= new ArrayList<>();
 	ArrayList<String> prNombres = new ArrayList<>();
 	ArrayList<String> prAcciones = new ArrayList<>();
-	ArrayList<String> prLugares = new ArrayList<>();// t3.devuelvePreguntasDe("preguntasLugares");
-	// String [] soloPreguntasLugares=prLugares.toArray(new String[0]);
-	int contadorPreguntasNombres = 0, contadorPreguntasLugares = 0, contadorPreguntasAcciones = 0;
-	{
-		try {// hay que leer los archivos externos e ir añadiendo pregunta y respuesta de
-				// manera conjunta a su hashmap
-				// correspondiente
-			BufferedReader br = new BufferedReader(new FileReader("trivial/nuevisimo/preguntasNombres.txt"));
-			BufferedReader brL = new BufferedReader(new FileReader("trivial/nuevisimo/preguntasLugares.txt"));
-			BufferedReader brP = new BufferedReader(new FileReader("trivial/nuevisimo/preguntasAcciones.txt"));
-
-			String linea = "";
-			String respuesta = "";
-			while (linea != null) {
-
-				linea = br.readLine();
-				respuesta = br.readLine();
-				if (linea != null) {
-					pregNombres.put(linea, respuesta);
-					prNombres.add(linea);
-				}
-			} // despues de cada lectura de archivo, linea tiene que estar limpia para no
-				// meter una pregunta de otro archivo
-				// en el siguiente
-			linea = "";
-			while (linea != null) {
-				linea = brL.readLine();
-				respuesta = brL.readLine();
-				if (respuesta != null) {
-					// añado al hashmap y a la lista de preguntas correspondiente
-					pregLugares.put(linea, respuesta);
-					prLugares.add(linea);
+	ArrayList<String> prMusica = new ArrayList<>();
+	ArrayList<String> prLugares = new ArrayList<>();
+	
+	//*********************************************************************************
+	
+	public ArrayList<String> leerArchivoPreguntas
+	(String ruta, HashMap<String, String> pregYRespuetas, ArrayList<String> listaSoloPreguntas)
+	  {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(ruta));
+			String pregunta="";
+			String respuesta="";
+			while(pregunta!=null) {
+				pregunta=br.readLine();
+				respuesta=br.readLine();
+				if(pregunta!=null) {
+					listaSoloPreguntas.add(pregunta);
+					pregYRespuetas.put(pregunta, respuesta);
 				}
 			}
-			linea = "";
-			while (linea != null) {
-				linea = brP.readLine();
-				respuesta = brP.readLine();
-				if (respuesta != null) {
-					// añado al hashmap y a la lista de pregunatas correspondiente
-					pregAcciones.put(linea, respuesta);
-					prAcciones.add(linea);
-				}
-			}
-			linea = "";
 		} catch (FileNotFoundException e) {
-			System.out.println("no se encontro el archivo de preguntas ");
+			
+			System.out.println("el archivo no se encuentra en la ruta especificada por parametros al metodo");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("error al leer del archivo");
+			System.out.println("Error al leer la linea del archivo");
 		}
-		// mezclo las listas para que no siempre salgan en el mismo orden
-		Collections.shuffle(prNombres);
-		Collections.shuffle(prLugares);
-		Collections.shuffle(prAcciones);
-	}
-	// paso las listas de preguntas a arrays ... ¿podria hacerse con un iterador??
-	// al accederlo mediante indices me es mas facil con un aarray
-	String[] soloPreguntasAcciones = prAcciones.toArray(new String[0]);
-	String[] soloPreguntasLugares = prLugares.toArray(new String[0]);
-	String[] preguntasNombres = prNombres.toArray(new String[0]);
-	String categoria;
+		return listaSoloPreguntas;
+	}// fin metodoLeer que devuelve la lista de preguntas y llena el archivo HashMap con preg y respuestas???
+	
 
-	public void leerPreguntas() {
+	
+
+	public void leerPreguntas(String [] nombreArrayPreguntas) {
 		Pregunta p = new Pregunta();
-		for (String i : preguntasNombres) {
+		for (String i : nombreArrayPreguntas) {
 			System.out.println(i);
 		}
 	}
 
 	public Pregunta() {
-
+		
+		categorias2.add("nombres");
+		categorias2.add("acciones");
+		categorias2.add("lugares");
+		categorias2.add("musica");
+		prMusica=leerArchivoPreguntas("trivial/nuevisimo/preguntasMusica.txt", pregMusica, prMusica);
+		prAcciones =leerArchivoPreguntas("trivial/nuevisimo/preguntasAcciones.txt", pregAcciones, prAcciones);
+		prLugares=leerArchivoPreguntas("trivial/nuevisimo/preguntasLugares.txt", pregLugares, prLugares);
+		prNombres=leerArchivoPreguntas("trivial/nuevisimo/preguntasNombres.txt", pregNombres, prNombres);
+		Collections.shuffle(prMusica);
+		Collections.shuffle(prAcciones);
+		Collections.shuffle(prLugares);
+		Collections.shuffle(prNombres);
+		soloPreguntasAcciones = prAcciones.toArray(new String[0]);
+		soloPreguntasLugares = prLugares.toArray(new String[0]);
+		soloPreguntasNombres = prNombres.toArray(new String[0]);
+		soloPreguntasMusica = prMusica.toArray(new String[0]);
+		
 	}
 
 	public boolean preguntar(String categoria) {
-		if (contadorPreguntasAcciones < soloPreguntasAcciones.length && contadorPreguntasLugares < soloPreguntasLugares.length
-				&& contadorPreguntasNombres < preguntasNombres.length) {
+		if (  contadorPreguntasLugares < soloPreguntasLugares.length
+				 ) {
 			String pregunta="";
 			if (categoria.equals("nombres")) {
-				 pregunta = preguntasNombres[contadorPreguntasNombres];
-				System.out.println(pregunta);
-				System.out.println("Respuesta?");
-				String respuesta = sc.nextLine();
-
-				if (respuesta.equalsIgnoreCase(pregNombres.get(pregunta))) {
-					System.out.println("respuesta correcta");
-					contadorPreguntasNombres++;
-					correcta = true;
-				} else {
-					System.out.println("nooooooooooooooooooooo incorrecto");
-					correcta = false;
+				if(contadorPreguntasNombres < soloPreguntasNombres.length) {
+					 pregunta = soloPreguntasNombres[contadorPreguntasNombres];
+					System.out.println(pregunta);
+					System.out.println("Respuesta?");
+					String respuesta = sc.nextLine();
+	
+					if (respuesta.equalsIgnoreCase(pregNombres.get(pregunta))) {
+						System.out.println("respuesta correcta");
+						contadorPreguntasNombres++;
+						correcta = true;
+					} else {
+						System.out.println("nooooooooooooooooooooo incorrecto");
+						correcta = false;
+						contadorPreguntasNombres++;
+					}
+				}else {
+					System.out.println("no quedan preguntas de nombres");
 				}
 			} 
 			if (categoria.equals("lugares")) {
@@ -131,58 +153,109 @@ public class Pregunta {
 				} else {
 					System.out.println("nooooooooooooooooooooo incorrecto");
 					correcta = false;
+					contadorPreguntasLugares++;
 				}
 			}
 			if (categoria.equals("acciones")) {
-				 pregunta = soloPreguntasAcciones[contadorPreguntasAcciones];
-				System.out.println(pregunta);
-				System.out.println("Respuesta?");
-				String respuesta = sc.nextLine();
-				System.out.println(pregAcciones.get(pregunta));
-				if (respuesta.equalsIgnoreCase(pregAcciones.get(pregunta))) {
-					System.out.println("respuesta correcta");
-					contadorPreguntasAcciones++;
-					correcta = true;
-				} else {
-					System.out.println("nooooooooooooooooooooo incorrecto");
-					correcta = false;
-				}
-			}if (!correcta)
-				{prfalladas.add(pregunta);}
-		}//fin del if controlador para no salirnos del rango de cantidad de preguntas que hay
-		return correcta;
-	}
-
-	public HashMap<String, String> devuelvePreguntasyRespuestasenObjetoPregunta(String nombreArchivo) {
-		try {
-			HashMap<String, String> tacoPreguntas = new HashMap<>();
-			BufferedReader br = new BufferedReader(new FileReader("trivial/nuevisimo/" + nombreArchivo + ".txt"));
-			String linea = "";
-			String respuesta = "";
-			// String nombreLista="pr"+nombreArchivo;
-
-			while (linea != null) {
-				linea = br.readLine();
-				respuesta = br.readLine();
-				if (linea != null) {
-					tacoPreguntas.put(linea, respuesta);
+				if(contadorPreguntasAcciones < soloPreguntasAcciones.length) {
+					 pregunta = soloPreguntasAcciones[contadorPreguntasAcciones];
+					System.out.println(pregunta);
+					System.out.println("Respuesta?");
+					String respuesta = sc.nextLine();
+					System.out.println(pregAcciones.get(pregunta));
+					if (respuesta.equalsIgnoreCase(pregAcciones.get(pregunta))) {
+						System.out.println("respuesta correcta");
+						contadorPreguntasAcciones++;
+						correcta = true;
+					} else {
+						System.out.println("nooooooooooooooooooooo incorrecto");
+						correcta = false;
+						contadorPreguntasAcciones++;
+					}
+				}else {
+					finPreguntasAcciones=true;
+					System.out.println("se han acabado las preguntas de Acciones");
 				}
 			}
-			return tacoPreguntas;
-
-		} catch (FileNotFoundException e) {
-			System.out.println("NO SE ENCUENTRA EL ARCHIVO");
-		} catch (IOException e) {
-			System.out.println("No se pudo leer la linea");
+			if(categoria.equalsIgnoreCase("musica")) {
+				if(contadorPreguntasMusica<soloPreguntasMusica.length) {
+					 pregunta = soloPreguntasMusica[contadorPreguntasMusica];
+					 System.out.println(pregunta);
+					 System.out.println("Respuesta?");
+					 String respuesta= sc.nextLine();
+					 if(respuesta.equalsIgnoreCase(pregMusica.get(pregunta))) {
+						 System.out.println("Respuesta correcta");
+						 contadorPreguntasMusica++;
+						 correcta=true;
+					 }else {
+						 System.out.println("Nooo incorrecta");
+						 correcta=false;
+						 contadorPreguntasMusica++;
+					 }
+				}else {
+					System.out.println("No quedan preguntas de musica");
+					finPreguntasMusica=true;
+				}
+			}
+			
+			if (!correcta)
+				{prfalladas.add(pregunta);}
+		}else{
+			correcta=false;
+			System.out.println("fin de preguntas ");//fin del if controlador para no salirnos del rango de cantidad de preguntas que hay
 		}
-		return tacoPreguntas;
+		return correcta;
+	}
+	public boolean devuelveSiquedanPreguntas() {
+		if(contadorPreguntasAcciones>soloPreguntasAcciones.length) {
+			System.out.println("sin preguntas del tipo accion");
+		}
+		if(contadorPreguntasLugares>soloPreguntasLugares.length) {
+			System.out.println("sin preguntas del tipo lugares");
+		}
+		if(contadorPreguntasMusica>soloPreguntasMusica.length) {
+			System.out.println("sin preguntas de musica");
+		}
+		if(contadorPreguntasNombres>soloPreguntasNombres.length) {
+			System.out.println("sin preguntas de tipo nombre");
+		}
+		
+		return false;
+	}
+//	public HashMap<String, String> devuelvePreguntasyRespuestasenObjetoPregunta(String nombreArchivo) {
+//		try {
+//			HashMap<String, String> tacoPreguntas = new HashMap<>();
+//			BufferedReader br = new BufferedReader(new FileReader("trivial/nuevisimo/" + nombreArchivo + ".txt"));
+//			String linea = "";
+//			String respuesta = "";
+//			// String nombreLista="pr"+nombreArchivo;
+//
+//			while (linea != null) {
+//				linea = br.readLine();
+//				respuesta = br.readLine();
+//				if (linea != null) {
+//					tacoPreguntas.put(linea, respuesta);
+//				}
+//			}
+//			return tacoPreguntas;
+//
+//		} catch (FileNotFoundException e) {
+//			System.out.println("NO SE ENCUENTRA EL ARCHIVO");
+//		} catch (IOException e) {
+//			System.out.println("No se pudo leer la linea");
+//		}
+//		return tacoPreguntas;
+//
+//	}
 
+	public ArrayList<String> getPrfalladas() {
+		return prfalladas;
 	}
 
 	public static void main(String[] args) {
 		Pregunta t1 = new Pregunta();
 		TacoPreguntas t2 = new TacoPreguntas();
-		HashMap<String, String> preguntasNuevas = t1.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasLugares");
+		//HashMap<String, String> preguntasNuevas = t1.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasLugares");
 		// t1.preguntar("lugares");
 		t1.preguntar("acciones");
 		t1.preguntar("lugares");

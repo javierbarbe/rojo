@@ -11,6 +11,7 @@ public class Jugador {
 	static Pregunta prfinal= new Pregunta();
 	String [] preguntasArray;
 	Scanner sc = new Scanner (System.in);
+	boolean ceroNoPuedeSalir=false,unoNoPuedeSalir=false,dosNoPuedeSalir=false,tresNoPuedeSalir=false;
  private String nombre="";
  boolean buena=false;
 	protected String getNombre() {
@@ -77,13 +78,47 @@ protected void setNombre(String nombre) {
 	public boolean moverse() { // devuelve true si el acierto es correcto
 							   //cada vez que se ejecuta genera una tirada
 		boolean acierto=false;
-		Dado d6mov= new Dado(6); // de 1 a 6 
-		casillaActual+=d6mov.getValor();
-		while(casillaActual>3) {
-			casillaActual/=3;
+		Dado d6mov= new Dado(4); // de 1 a 4 tiene que ser de 0 a 3 por eso el menos 1, array de 4 pos
+		int valordado=d6mov.getValor()-1;
+		casillaActual=valordado;
+		movimiento+=casillaActual;
+//		while(casillaActual>4) {
+//			casillaActual/=4;
+//		}
+		if(prfinal.finPreguntasMusica==true && valordado==3) {
+			do {
+				 d6mov= new Dado(4); // de 1 a 4 
+				 valordado=d6mov.getValor()-1;
+				 tresNoPuedeSalir=true;
+			}while(valordado==3);
+		}
+		if(prfinal.finPreguntasAcciones==true && valordado==2) {
+			do {
+				 d6mov= new Dado(4); // de 1 a 4 
+				 valordado=d6mov.getValor()-1;
+				 dosNoPuedeSalir=true;
+			}while(valordado==2);
+		}
+		if(prfinal.finPreguntasLugares==true && valordado==1) {
+			do {
+				 d6mov= new Dado(4); // de 1 a 4 
+				 valordado=d6mov.getValor()-1;
+				 unoNoPuedeSalir=true;
+			}while(valordado==1);
 		}
 	
-		acierto=prfinal.preguntar(prfinal.categorias[casillaActual]);
+		if(prfinal.finPreguntasMusica==true && valordado==0) {
+			do {
+				 d6mov= new Dado(4); // de 1 a 4 
+				 valordado=d6mov.getValor()-1;
+				 ceroNoPuedeSalir=true;
+			}while(valordado==0);
+		}else {
+			ceroNoPuedeSalir=false;
+		}
+		//while((!tresNoPuedeSalir && valordado==3) || (!unoNoPuedeSalir && valordado==1))
+	
+		acierto=prfinal.preguntar(prfinal.categorias[valordado]);
 		
 		return acierto;
 	}
