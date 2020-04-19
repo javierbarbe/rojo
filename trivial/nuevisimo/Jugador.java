@@ -90,6 +90,7 @@ protected void setNombre(String nombre) {
 		boolean acierto=false;
 		Dado d6mov= new Dado(8); // de 1 a 4 tiene que ser de 0 a 3 por eso el menos 1, array de 4 pos
 		int valordado=d6mov.getValor();
+		animacionTiradaDado();
 		casillaActual=valordado;
 		movimiento+=casillaActual;
 //		while(casillaActual>4) {
@@ -120,14 +121,15 @@ protected void setNombre(String nombre) {
 		case 40: System.out.println("Pregunta de quesito>>>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		default : quesito=true; 
-				System.out.println("Por defecto quesito siempre PRUEBAS");
+//		default : quesito=true; 
+//				System.out.println("Por defecto quesito siempre PRUEBAS");
 		}
 		if (movimiento>40) {
 			movimiento=0;
 		}
 		System.out.println("sacas un "+ valordado);
 		System.out.println("vas a la casilla " +this.movimiento);
+		System.out.println("la pregunta es de la categoria "+ prfinal.categorias[valordado]);
 		acierto=prfinal.preguntar(prfinal.categorias[valordado],this);
 		if(quesito) { //con este if evaluo si ha caido en pregunta de quesito
 			ganarQueso(acierto, quesito, prfinal.categorias[valordado]); //ganarqueso evalua si acierto y 
@@ -141,7 +143,26 @@ protected void setNombre(String nombre) {
 	}
 	
 	
-	
+	public void animacionTiradaDado() {
+		try {
+			System.out.print(".");
+			Thread.sleep(350);
+			System.out.print("..");
+			Thread.sleep(350);
+			System.out.print("...");
+			Thread.sleep(350);
+			System.out.print("....");
+			Thread.sleep(350);
+			System.out.println("__");
+			System.out.println("..........|·|");
+			System.out.println("          --");
+			
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			System.out.println("error al parar el programa");
+		}
+	}
 	
 	
 	protected int getCasillaActual() {
