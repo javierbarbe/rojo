@@ -12,7 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/*
+ * ESTA CLASE NO SE UTILIZA PARA NADA... FUERON PREUBAS PARA LOS DSITINTOS TIPOS DE PREGUNTAS
+ */
 public class TacoPreguntas {
 
 	

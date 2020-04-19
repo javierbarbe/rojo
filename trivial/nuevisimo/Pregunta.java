@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import heroquest.Dado;
+//import heroquest.Dado;
 
 public class Pregunta {
 	//-----------------------controladores de fin de preguntas-------------------------------------------
@@ -139,6 +139,7 @@ public class Pregunta {
 						System.out.println("nooooooooooooooooooooo incorrecto");
 						correcta = false;
 						contadorPreguntasNombres++;
+						System.out.println(pregNombres.get(pregunta)+" era la respuesta correcta");
 					}
 				}else {
 					finPreguntasNombres=true;
@@ -154,13 +155,14 @@ public class Pregunta {
 					System.out.println(pregunta);
 					System.out.println("Respuesta?");
 					String respuesta = sc.nextLine();
-					System.out.println(pregLugares.get(pregunta));
+					
 					if (respuesta.equalsIgnoreCase(pregLugares.get(pregunta))) {
 						System.out.println("respuesta correcta");
 						contadorPreguntasLugares++;
 						correcta = true;
 					} else {
 						System.out.println("nooooooooooooooooooooo incorrecto");
+						System.out.println(pregLugares.get(pregunta)+ " era  la respuesta correcta");
 						correcta = false;
 						contadorPreguntasLugares++;
 					}
@@ -178,7 +180,7 @@ public class Pregunta {
 					System.out.println(pregunta);
 					System.out.println("Respuesta?");
 					String respuesta = sc.nextLine();
-					System.out.println(pregAcciones.get(pregunta));
+					
 					if (respuesta.equalsIgnoreCase(pregAcciones.get(pregunta))) {
 						System.out.println("respuesta correcta");
 						contadorPreguntasAcciones++;
@@ -187,6 +189,7 @@ public class Pregunta {
 						System.out.println("nooooooooooooooooooooo incorrecto");
 						correcta = false;
 						contadorPreguntasAcciones++;
+						System.out.println(pregAcciones.get(pregunta)+ " era lo correcto");
 					}
 				}else {
 					finPreguntasAcciones=true;
@@ -210,6 +213,7 @@ public class Pregunta {
 						 System.out.println("Nooo incorrecta");
 						 correcta=false;
 						 contadorPreguntasMusica++;
+						 System.out.println(pregMusica.get(pregunta)+ " era lo correcto");
 					 }
 				}else {
 					System.out.println("No quedan preguntas de musica");
@@ -371,7 +375,7 @@ public class Pregunta {
 		this.finPreguntasAcciones = finPreguntasAcciones;
 	}
 
-	int contadorPreguntasNombres = 0, contadorPreguntasLugares = 0,
+	private int contadorPreguntasNombres = 0, contadorPreguntasLugares = 0,
 			contadorPreguntasAcciones = 0, contadorPreguntasMusica=0;
 	
 	

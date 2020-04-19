@@ -20,7 +20,21 @@ public class Jugador {
 	return nombre;
 }
 protected void setNombre(String nombre) {
+	boolean nombreCorrecto=false;
+	do {
+	try {
+			comparar(nombre);
+			nombreCorrecto=true;
+		} catch (ExcepcionNumerosenNombre e) {
+			// TODO Auto-generated catch block
+			//sc.next();
+			System.out.println("solo caracteres alfabeticos simples");
+			System.out.println("introduce un nuevo nombre");
+			nombre=sc.nextLine();
+		}
+	}while(!nombreCorrecto);
 	this.nombre = nombre;
+	nombreCorrecto=false;
 }
 	public Jugador(String nombre) {
 		this.nombre=nombre;
@@ -55,19 +69,27 @@ protected void setNombre(String nombre) {
 				break;
 			}
 		}else {
-			System.out.println("OOOHHH has fallado la pregunta de quesito... y ademas...");
+			System.out.println("OOOHHH has fallado la pregunta de quesito... ");
 			switch (categoria) {
-			case "acciones": quesitoAcciones=false;
-				System.out.println("!PERDISTE EL QUESO DE ACCIONES!!");
+			case "acciones": if(quesitoAcciones) { 
+								quesitoAcciones=false;
+								System.out.println("!y ademas...PERDISTE EL QUESO DE ACCIONES!!");
+							}
 					break;
-			case "lugares": quesitoLugares=false;
-				System.out.println("!PERDISTE EL QUESO DE LUGARES!!");
+			case "lugares":if (quesitoLugares) {
+							quesitoLugares=false;
+							System.out.println("!y ademas...PERDISTE EL QUESO DE LUGARES!!");
+					}
 					break;
-			case "musica" : quesitoMusica=false;
-				System.out.println("!PERDISTE EL QUESO DE MUSICA!!");
+			case "musica" :if(quesitoMusica) {
+							quesitoMusica=false;
+							System.out.println("!y ademas...PERDISTE EL QUESO DE MUSICA!!");
+							}
 					break;
-			case "nombres": quesitoNombres=false;
-				System.out.println("!PERDISTE EL QUESO DE NOMBRES!!");
+			case "nombres": if(quesitoNombres) {
+						quesitoNombres=false;
+						System.out.println("!y ademas...PERDISTE EL QUESO DE NOMBRES!!");
+						}
 				break;
 			}
 			
@@ -75,6 +97,9 @@ protected void setNombre(String nombre) {
 		}
 	}
 	
+	public Jugador() {
+		 
+	}
 	protected int getCantidadQuesitos() {
 		return cantidadQuesitos;
 	}
@@ -172,7 +197,7 @@ protected void setNombre(String nombre) {
 	}
 	public void imprimeCuantosQuesitosyPosicion() {
 		System.out.println("le toca al jugador "+this.getNombre()+ " estas en la casilla "+ this.getMovimiento());
-		if (this.getCantidadQuesitos()>1) {
+		if (this.getCantidadQuesitos()>1 || this.getCantidadQuesitos()==0) {
 		System.out.println("tienes "+ this.getCantidadQuesitos()+ " quesitos");
 		}else {
 			System.out.println("tienes "+ this.getCantidadQuesitos()+ " quesito");

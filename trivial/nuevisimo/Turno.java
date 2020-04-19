@@ -48,7 +48,7 @@ public class Turno {
 	
 	
 	public Turno () {
-		System.out.println("introduce tu nombre");
+		
 		Jugador n = new Jugador("javi");
 		Jugador n2 = new Jugador("papa");
 		//Pregunta p = new Pregunta();
