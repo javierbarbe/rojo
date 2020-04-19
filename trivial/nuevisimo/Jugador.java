@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import heroquest.Dado;
 
 public class Jugador {
-	private int casillaActual=0,movimiento;
+	private int casillaActual=0,movimiento,cantidadQuesitos=0;
 	static Pregunta prfinal= new Pregunta();
 	int acertadas=0;
 	private boolean quesitoAcciones=false,quesitoLugares=false, quesitoMusica=false,quesitoNombres=false;
@@ -39,15 +39,19 @@ protected void setNombre(String nombre) {
 			switch (categoria) {
 			case "acciones": quesitoAcciones=true;
 				System.out.println("!GANASTE EL QUESO DE ACCIONES!!");
+					cantidadQuesitos++;
 					break;
 			case "lugares": quesitoLugares=true;
 				System.out.println("!GANASTE EL QUESO DE LUGARES!!");
+				cantidadQuesitos++;
 					break;
 			case "musica" : quesitoMusica=true;
 				System.out.println("!GANASTE EL QUESO DE MUSICA!!");
+				cantidadQuesitos++;
 					break;
 			case "nombres": quesitoNombres=true;
 				System.out.println("!GANASTE EL QUESO DE NOMBRES!!");
+				cantidadQuesitos++;
 				break;
 			}
 		}else {
@@ -71,6 +75,9 @@ protected void setNombre(String nombre) {
 		}
 	}
 	
+	protected int getCantidadQuesitos() {
+		return cantidadQuesitos;
+	}
 	public boolean moverse() { // devuelve true si el acierto es correcto
 		if(quesitoNombres && quesitoAcciones && quesitoLugares && quesitoMusica) {
 			System.out.println("fin de juego");
@@ -100,25 +107,25 @@ protected void setNombre(String nombre) {
 		case 5 : System.out.println("Pregunta de quesito");
 				quesito=true;
 				break;
-		case 10 : System.out.println("Pregunta de quesito");
+		case 10 : System.out.println("<<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		case 15 : System.out.println("Pregunta de quesito");
+		case 15 : System.out.println("<<<<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		case 20: System.out.println("Pregunta de quesito>>>>>>>>>>>>>>>>>");
+		case 20: System.out.println("<<<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		case 25 : System.out.println("Pregunta de quesito>>>>>>>>>>>>>>>>>>>");
+		case 25 : System.out.println("<<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		case 30: System.out.println("Pregunta de quesito>>>>>>>>>>>>>>>>>>");
+		case 30: System.out.println("<<<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		case 35 : System.out.println("Pregunta de quesito>>>>>>>>>>>>>>>");
+		case 35 : System.out.println("<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
-		case 40: System.out.println("Pregunta de quesito>>>>>>>>>>>>>>>>>>");
+		case 40: System.out.println("<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>>>");
 				quesito=true;
 				break;
 //		default : quesito=true; 
