@@ -5,31 +5,33 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import heroquest.Dado;
+
 public class Pregunta {
 	//-----------------------controladores de fin de preguntas-------------------------------------------
-	boolean finPreguntasMusica=false,finPreguntasNombres=false, 
+	private boolean finPreguntasMusica=false,finPreguntasNombres=false, 
 			finPreguntasLugares=false, finPreguntasAcciones=false,
 			finPreguntasTodas=false;
 	
-	int contadorPreguntasNombres = 0, contadorPreguntasLugares = 0,
-			contadorPreguntasAcciones = 0, contadorPreguntasMusica=0;
+	
 	// ******************************************
 	
 	boolean correcta = false;
 	Scanner sc = new Scanner(System.in);
-	//String[] categorias = { "nombres", "lugares", "acciones",  "musica" };
-	String[] categorias = { "nombres", "musica", "musica",  "musica" };
+	String[] categorias = { "nombres", "lugares", "acciones",  "musica", "nombres", "lugares", "acciones",  "musica", "nombres" };
+	//String[] categorias = { "nombres", "musica", "musica",  "musica" };
 	ArrayList <String> categorias2= new ArrayList<>();
 
 	// --------------genero los hashmap donde almacenar preguntas y sus respuestas//---------------
 	
 	HashMap<String, String> pregNombres = new HashMap<>();
-	HashMap<String, String> pregPersonajes = new HashMap<>();
+	HashMap<String, String> pregPersonajes = new HashMap<>(); // sin usar
 	HashMap<String, String> pregAcciones = new HashMap<>();
 	HashMap<String, String> pregLugares = new HashMap<>();
 	HashMap<String, String> pregMusica = new HashMap<>();
@@ -70,7 +72,7 @@ public class Pregunta {
 			while(pregunta!=null) {
 				pregunta=br.readLine();
 				respuesta=br.readLine();
-				if(pregunta!=null) {
+				if(respuesta!=null) {
 					listaSoloPreguntas.add(pregunta);
 					pregYRespuetas.put(pregunta, respuesta);
 				}
@@ -116,12 +118,14 @@ public class Pregunta {
 		
 	}
 
-	public boolean preguntar(String categoria) {
-		if (  contadorPreguntasLugares < soloPreguntasLugares.length
-				 ) {
+	public boolean preguntar(String categoria, Jugador player) {
+		boolean comprobador=false;
+		if(!finPreguntasTodas) {
 			String pregunta="";
+			while(!comprobador) {
 			if (categoria.equals("nombres")) {
 				if(contadorPreguntasNombres < soloPreguntasNombres.length) {
+					comprobador=true;
 					 pregunta = soloPreguntasNombres[contadorPreguntasNombres];
 					System.out.println(pregunta);
 					System.out.println("Respuesta?");
@@ -137,27 +141,39 @@ public class Pregunta {
 						contadorPreguntasNombres++;
 					}
 				}else {
+					finPreguntasNombres=true;
 					System.out.println("no quedan preguntas de nombres");
+					Dado d4= new Dado(4);
+					categoria=categorias[d4.getValor()-1];
 				}
 			} 
 			if (categoria.equals("lugares")) {
-				 pregunta = soloPreguntasLugares[contadorPreguntasLugares];
-				System.out.println(pregunta);
-				System.out.println("Respuesta?");
-				String respuesta = sc.nextLine();
-				System.out.println(pregLugares.get(pregunta));
-				if (respuesta.equalsIgnoreCase(pregLugares.get(pregunta))) {
-					System.out.println("respuesta correcta");
-					contadorPreguntasLugares++;
-					correcta = true;
-				} else {
-					System.out.println("nooooooooooooooooooooo incorrecto");
-					correcta = false;
-					contadorPreguntasLugares++;
+				if( contadorPreguntasLugares < soloPreguntasLugares.length) {
+					comprobador=true;
+					pregunta = soloPreguntasLugares[contadorPreguntasLugares];
+					System.out.println(pregunta);
+					System.out.println("Respuesta?");
+					String respuesta = sc.nextLine();
+					System.out.println(pregLugares.get(pregunta));
+					if (respuesta.equalsIgnoreCase(pregLugares.get(pregunta))) {
+						System.out.println("respuesta correcta");
+						contadorPreguntasLugares++;
+						correcta = true;
+					} else {
+						System.out.println("nooooooooooooooooooooo incorrecto");
+						correcta = false;
+						contadorPreguntasLugares++;
+					}
+				}else {
+					System.out.println("Se han acabado las preguntas de lugares");
+					Dado d4= new Dado(4);
+					finPreguntasLugares=true;
+					categoria=categorias[d4.getValor()-1];
 				}
 			}
 			if (categoria.equals("acciones")) {
 				if(contadorPreguntasAcciones < soloPreguntasAcciones.length) {
+					comprobador=true;
 					 pregunta = soloPreguntasAcciones[contadorPreguntasAcciones];
 					System.out.println(pregunta);
 					System.out.println("Respuesta?");
@@ -174,11 +190,14 @@ public class Pregunta {
 					}
 				}else {
 					finPreguntasAcciones=true;
+					Dado d4= new Dado(4);
+					categoria=categorias[d4.getValor()-1];
 					System.out.println("se han acabado las preguntas de Acciones");
 				}
 			}
 			if(categoria.equalsIgnoreCase("musica")) {
 				if(contadorPreguntasMusica<soloPreguntasMusica.length) {
+					comprobador=true;
 					 pregunta = soloPreguntasMusica[contadorPreguntasMusica];
 					 System.out.println(pregunta);
 					 System.out.println("Respuesta?");
@@ -195,17 +214,42 @@ public class Pregunta {
 				}else {
 					System.out.println("No quedan preguntas de musica");
 					finPreguntasMusica=true;
+					player.moverse();
+//					Dado d4= new Dado(4);
+//					categoria=categorias[d4.getValor()-1];
+					
 				}
 			}
 			
-			if (!correcta)
-				{prfalladas.add(pregunta);}
+			if (!correcta){
+				prfalladas.add(pregunta);
+				}
+			}// fin while controlador
 		}else{
+			if(finPreguntasAcciones && finPreguntasLugares && finPreguntasMusica && finPreguntasMusica && finPreguntasNombres) {
+				finPreguntasTodas=true;
+				comprobador=true;
+			}
 			correcta=false;
 			System.out.println("fin de preguntas ");//fin del if controlador para no salirnos del rango de cantidad de preguntas que hay
 		}
 		return correcta;
 	}
+	
+	protected boolean isFinPreguntasTodas() {
+		return finPreguntasTodas;
+	}
+
+
+
+
+	protected void setFinPreguntasTodas(boolean finPreguntasTodas) {
+		this.finPreguntasTodas = finPreguntasTodas;
+	}
+
+
+
+
 	public boolean devuelveSiquedanPreguntas() {
 		if(contadorPreguntasAcciones>soloPreguntasAcciones.length) {
 			System.out.println("sin preguntas del tipo accion");
@@ -222,47 +266,116 @@ public class Pregunta {
 		
 		return false;
 	}
-//	public HashMap<String, String> devuelvePreguntasyRespuestasenObjetoPregunta(String nombreArchivo) {
-//		try {
-//			HashMap<String, String> tacoPreguntas = new HashMap<>();
-//			BufferedReader br = new BufferedReader(new FileReader("trivial/nuevisimo/" + nombreArchivo + ".txt"));
-//			String linea = "";
-//			String respuesta = "";
-//			// String nombreLista="pr"+nombreArchivo;
-//
-//			while (linea != null) {
-//				linea = br.readLine();
-//				respuesta = br.readLine();
-//				if (linea != null) {
-//					tacoPreguntas.put(linea, respuesta);
-//				}
-//			}
-//			return tacoPreguntas;
-//
-//		} catch (FileNotFoundException e) {
-//			System.out.println("NO SE ENCUENTRA EL ARCHIVO");
-//		} catch (IOException e) {
-//			System.out.println("No se pudo leer la linea");
-//		}
-//		return tacoPreguntas;
-//
-//	}
+
 
 	public ArrayList<String> getPrfalladas() {
 		return prfalladas;
 	}
 
+	
+	
+	
 	public static void main(String[] args) {
 		Pregunta t1 = new Pregunta();
 		TacoPreguntas t2 = new TacoPreguntas();
 		//HashMap<String, String> preguntasNuevas = t1.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasLugares");
 		// t1.preguntar("lugares");
-		t1.preguntar("acciones");
-		t1.preguntar("lugares");
+		
 		// t2.devuelvePreguntasDe("preguntasLugares");
 //	System.out.println(t2.devuelvePreguntasDe("preguntasLugares"));
 		// t1.preguntar(t2.categoria);
 		// t1.leerPreguntas();
 //	t1.preguntar("nombres");
 	}
+	
+	//---------------------CODIGO BASURA ---------------------
+	
+	public HashMap<String, String> devuelvePreguntasyRespuestasenObjetoPregunta(String nombreArchivo) {
+		HashMap<String, String> tacoPreguntas = new HashMap<>();
+	try {
+		
+		BufferedReader br = new BufferedReader(new FileReader("trivial/nuevisimo/" + nombreArchivo + ".txt"));
+		String linea = "";
+		String respuesta = "";
+		// String nombreLista="pr"+nombreArchivo;
+
+		while (linea != null) {
+			linea = br.readLine();
+			respuesta = br.readLine();
+			if (linea != null) {
+				tacoPreguntas.put(linea, respuesta);
+			}
+		}
+		return tacoPreguntas;
+
+	} catch (FileNotFoundException e) {
+		System.out.println("NO SE ENCUENTRA EL ARCHIVO");
+	} catch (IOException e) {
+		System.out.println("No se pudo leer la linea");
+	}
+	return tacoPreguntas;
+
+}
+//-----------------GETTERS Y SETTERS --------------------------------
+	
+	protected boolean isFinPreguntasMusica() {
+		return finPreguntasMusica;
+	}
+
+
+
+
+	protected void setFinPreguntasMusica(boolean finPreguntasMusica) {
+		this.finPreguntasMusica = finPreguntasMusica;
+	}
+
+
+
+
+	protected boolean isFinPreguntasNombres() {
+		return finPreguntasNombres;
+	}
+
+
+
+
+	protected void setFinPreguntasNombres(boolean finPreguntasNombres) {
+		this.finPreguntasNombres = finPreguntasNombres;
+	}
+
+
+
+
+	protected boolean isFinPreguntasLugares() {
+		return finPreguntasLugares;
+	}
+
+
+
+
+	protected void setFinPreguntasLugares(boolean finPreguntasLugares) {
+		this.finPreguntasLugares = finPreguntasLugares;
+	}
+
+
+
+
+	protected boolean isFinPreguntasAcciones() {
+		return finPreguntasAcciones;
+	}
+
+
+
+
+	protected void setFinPreguntasAcciones(boolean finPreguntasAcciones) {
+		this.finPreguntasAcciones = finPreguntasAcciones;
+	}
+
+	int contadorPreguntasNombres = 0, contadorPreguntasLugares = 0,
+			contadorPreguntasAcciones = 0, contadorPreguntasMusica=0;
+	
+	
+	
+	
+	
 }

@@ -9,7 +9,9 @@ public class Pruebas {
 		System.out.println(resultado);
 		Pregunta p = new Pregunta();
 		System.out.println(p.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasAcciones"));
+		System.out.println(p.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasLugares"));
 		System.out.println(p.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasMusica"));
+		System.out.println(p.devuelvePreguntasyRespuestasenObjetoPregunta("preguntasNombres"));
 		System.out.println(p.getPrfalladas());
 	}
 }
