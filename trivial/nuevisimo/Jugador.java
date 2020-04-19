@@ -91,7 +91,7 @@ protected void setNombre(String nombre) {
 		boolean seacabo=prfinal.isFinPreguntasTodas();
 		if(seacabo) {
 			System.out.println("se acabaron las preguntas");
-			System.exit(0);
+			//System.exit(0);
 		}
 		boolean quesito=false;				   //cada vez que se ejecuta genera una tirada
 		boolean acierto=false;
@@ -104,7 +104,7 @@ protected void setNombre(String nombre) {
 //			casillaActual/=4;
 //		}
 		switch (movimiento) { //aqui establezco las casillas de quesitos
-		case 5 : System.out.println("Pregunta de quesito");
+		case 5 : System.out.println("<<<<<<<<<<<<<<<<<<Pregunta de quesito<<>>>>>>>>>>>");
 				quesito=true;
 				break;
 		case 10 : System.out.println("<<<<<<<<<<<<<<<<<<Pregunta de quesito>>>>>>>>>>>>>>>>");
@@ -170,7 +170,14 @@ protected void setNombre(String nombre) {
 			System.out.println("error al parar el programa");
 		}
 	}
-	
+	public void imprimeCuantosQuesitosyPosicion() {
+		System.out.println("le toca al jugador "+this.getNombre()+ " estas en la casilla "+ this.getMovimiento());
+		if (this.getCantidadQuesitos()>1) {
+		System.out.println("tienes "+ this.getCantidadQuesitos()+ " quesitos");
+		}else {
+			System.out.println("tienes "+ this.getCantidadQuesitos()+ " quesito");
+		}
+	}
 	
 	protected int getCasillaActual() {
 		return casillaActual;
