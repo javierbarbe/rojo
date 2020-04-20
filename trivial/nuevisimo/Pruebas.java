@@ -4,6 +4,9 @@ public class Pruebas {
 
 	
 	public static void main (String [] a) {
+		for (int i= 0; i<6; i++) {
+			String culo$i= "culo";
+		}
 		int resultado;
 		resultado=9/4;
 		System.out.println(resultado);
