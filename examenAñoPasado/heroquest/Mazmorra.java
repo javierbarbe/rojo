@@ -55,20 +55,29 @@ public class Mazmorra {
 				System.out.println(i);
 			}
 			do {
-				int habElegida = Integer.valueOf(JOptionPane.showInputDialog("A que habitacion entras?"));
+				int habElegida = Integer.valueOf(JOptionPane.showInputDialog("De las "+mazmo.cantidadHabitaciones()+" habitaciones, A que habitacion entras?"));
 				Habitacion elegido2 = mazmo.habitaciones[habElegida - 1];
 				do {
 					for (Personaje p : grupoHeroes) {
+						System.out.println("Turno del Jugador "+p.getNombre());
+						System.out.println("Estais en la habitacion "+ (habElegida));
 						p.eligeAccion(elegido2);
-						for (Enemigo e : elegido2.listaMonstruosHabitacion) {
-							e.enemigoAtacan(p);
-						}
-						if (p.getVida() < 1) {
-							System.out.println("Has muerto... fin de juego");
-							System.exit(0);
-						}
 					}
-				} while (elegido2.numEnemigosRestantes() > 0);
+						for (Enemigo e : elegido2.listaMonstruosHabitacion) {
+							if(grupoHeroes.length>1) {
+								Dado dado = new Dado (grupoHeroes.length-1);//un dado con la cantidad de heroes para 
+								System.out.println("el enemigo "+e.getRaza()+ " ataca a "+ grupoHeroes[dado.getValor()].getNombre());
+								e.enemigoAtacan(grupoHeroes[dado.getValor()]);										//elegir uno aleatorio, restar 1 para que coincida
+							}else {
+							e.enemigoAtacan(grupoHeroes[0]);
+						}
+//						if (p.getVida() < 1) {
+//							System.out.println("Has muerto... fin de juego");
+//							System.exit(0);
+//						}
+					
+						} 
+				}while (elegido2.numEnemigosRestantes() > 0);
 				for (Habitacion i : mazmo.devuelveHabitaciones()) {
 					if (i.isAbierta() && elegido2.listaMonstruosHabitacion.size() == 0) {
 						mazmo.habitacionesCerradas = false;

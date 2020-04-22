@@ -28,6 +28,7 @@ public class Colecciones16_16Palabras_duplicadas {
 				System.out.println("Esta clave \""+ entry.getKey()+ "\" tiene este valor "+ entry.getValue());
 			}
 		}
+		mapa.forEach((k,v)-> System.out.println(k+ "  es la clave; "+ v+" es el valor ( o veces que se repite en este caso)"));
 
 	}
 
