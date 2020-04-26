@@ -48,7 +48,10 @@ public class PartidaTrivial {
 		
 		for (Jugador j : arrayJugadores) {
 			System.out.println(j.getNombre());
+			System.out.println(j.getAcertadas()+ " estas son las acertadas");
 		}
+		
+		
 	}
 
 }
