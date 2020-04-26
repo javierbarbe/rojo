@@ -70,6 +70,14 @@ public class Ej3 {
 //		}
 		miestante.aniadeElementosLi(new Libro("aladdir","disney", 250));
 		miestante.aniadeElementosLi(new Libro("aladdir","disney", 250));
+		//UTILIZANDO LAMBDAS PARA EL FOREACH
+		//CON STREAM ME PERMITE FILTRAR PONER CONDICIONES
+		miestante.estanteriaLista.stream().filter(s->s.getNumCanciones()==0).
+		forEach((o)->System.out.println(o.getNumPag()+ " numero de paginas") );
+		
+		miestante.estanteriaLista.stream().filter(s-> s.getNumPag()==0).
+		forEach((o)->System.out.println(o.getNumCanciones()+ " num de canciones"));
+		
 	}
 
 
