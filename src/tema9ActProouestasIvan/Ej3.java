@@ -2,6 +2,9 @@ package tema9ActProouestasIvan;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Ej3 {
 	/*
@@ -26,16 +29,47 @@ public class Ej3 {
 //		estanteriaLista.add(new Libro("las mil y una noches", "popular", 1001));
 //		estanteriaLista.add(new Disco("Bilo", "Cantante No se", 12));
 		Estante miestante = new  Estante();
-		miestante.setTamanio(3);
+		miestante.setTamanio(2);
+	//	miestante.estanteriaLista.add(new almacenables());
 		miestante.aniadeElementosLi(new Libro("las mil y una noches", "popular", 1001));
 		miestante.aniadeElementosLi(new Libro("las mil y dos noches", "popular", 1001));
 		miestante.añadeElementosDisco(new Disco("HELP", "The Beatles", 9));
+		//miestante.estanteriaLista.
 //		for(Object i: miestante) {
 //			System.out.println(i);
 //		}
 	//	miestante.forEach((o)->System.out.println(o.toString()));
-		System.out.println(miestante.getTamanio());
-		System.out.println(miestante);
+		//System.out.println(miestante.getTamanio());
+		ListIterator<almacenables> iterador =miestante.estanteriaLista.listIterator();
+		while(iterador.hasNext()) {
+			
+			Object iterado= iterador.next();
+			String clase = iterado.getClass().toString();
+			//System.out.println(clase);
+			Pattern patlib = Pattern.compile("(Libro)");
+			Matcher matlib= patlib.matcher(clase);
+			Pattern patdisco= Pattern.compile(("(Disco)"));
+			Matcher matdisco= patdisco.matcher(clase);
+			if(matlib.find()) {
+				iterador.previous();
+				//System.out.println("coincide con el patron");
+				System.out.println(iterador.next().getNumPag()+" numero de paginas del libro");
+			}
+			if(matdisco.find()) {
+				iterador.previous();
+				System.out.println(iterador.next().getNumCanciones()+ " canciones del disco");
+			}
+		}
+//		System.out.println("bucle for");
+//		for ( int i =0; i<miestante.getTamanio()+1; i++) {
+//			System.out.println(miestante.estanteriaLista.get(i).getTitulo());
+//			System.out.println(miestante.estanteriaLista.get(i).getNumPag());
+//			System.out.println(miestante.estanteriaLista.get(i).getNumCanciones());
+//			System.out.println(miestante.estanteriaLista.get(i).getAutor());
+//			
+//		}
+		miestante.aniadeElementosLi(new Libro("aladdir","disney", 250));
+		miestante.aniadeElementosLi(new Libro("aladdir","disney", 250));
 	}
 
 
@@ -88,6 +122,19 @@ class Estante implements Iterable{
 
 class almacenables{
 	private String titulo,autor;
+	private int numPag, numCanciones;
+	protected int getNumPag() {
+		return numPag;
+	}
+	protected void setNumPag(int numPag) {
+		this.numPag = numPag;
+	}
+	protected int getNumCanciones() {
+		return numCanciones;
+	}
+	protected void setNumCanciones(int numCanciones) {
+		this.numCanciones = numCanciones;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,7 +183,7 @@ class Libro extends almacenables{
 	public Libro(String titulo, String autor, int numPaginas) {
 		this.setTitulo(titulo);
 		this.setAutor(autor);
-		this.numPaginas=numPaginas;
+		this.setNumPag(numPaginas);
 		//this.setNumPaginas(numPaginas);
 	}
 	protected int getNumPaginas() {
@@ -157,10 +204,10 @@ class Disco extends almacenables{
 		 this.setNumCanciones(numCanciones);
 	 }
 
-	protected int getNumCanciones() {
+	protected int getNumCanciones2() {
 		return numCanciones;
 	}
-	protected void setNumCanciones(int numCanciones) {
+	protected void setNumCanciones2(int numCanciones) {
 		this.numCanciones = numCanciones;
 	}
 }
