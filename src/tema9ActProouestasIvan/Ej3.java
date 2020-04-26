@@ -68,7 +68,7 @@ public class Ej3 {
 //			System.out.println(miestante.estanteriaLista.get(i).getAutor());
 //			
 //		}
-		miestante.aniadeElementosLi(new Libro("aladdir","disney", 250));
+		miestante.añadeElementosDisco(new Disco("aladdir","disney", 250));
 		miestante.aniadeElementosLi(new Libro("aladdir","disney", 250));
 		//UTILIZANDO LAMBDAS PARA EL FOREACH
 		//CON STREAM ME PERMITE FILTRAR PONER CONDICIONES
