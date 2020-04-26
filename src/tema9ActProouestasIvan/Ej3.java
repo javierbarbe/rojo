@@ -1,6 +1,7 @@
 package tema9ActProouestasIvan;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Ej3 {
 	/*
@@ -21,18 +22,101 @@ public class Ej3 {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ArrayList < almacenables> estanteriaLista = new ArrayList<>();
-		estanteriaLista.add(new Libro());
-		estanteriaLista.add(new Disco());
+//		ArrayList < almacenables> estanteriaLista = new ArrayList<>();
+//		estanteriaLista.add(new Libro("las mil y una noches", "popular", 1001));
+//		estanteriaLista.add(new Disco("Bilo", "Cantante No se", 12));
+		Estante miestante = new  Estante();
+		miestante.setTamanio(3);
+		miestante.aniadeElementosLi(new Libro("las mil y una noches", "popular", 1001));
+		miestante.aniadeElementosLi(new Libro("las mil y dos noches", "popular", 1001));
+		miestante.añadeElementosDisco(new Disco("HELP", "The Beatles", 9));
+//		for(Object i: miestante) {
+//			System.out.println(i);
+//		}
+	//	miestante.forEach((o)->System.out.println(o.toString()));
+		System.out.println(miestante.getTamanio());
+		System.out.println(miestante);
 	}
 
 
 
 }
+class Estante implements Iterable{
+	private int tamanio;
+	protected int getTamanio() {
+		return tamanio;
+	}
 
+	protected void setTamanio(int tamanio) {
+		this.tamanio = tamanio;
+	}
+
+	ArrayList < almacenables> estanteriaLista = new ArrayList<>();
+	public Estante() {
+
+	}
+
+	public void aniadeElementosLi(Libro l) {
+		if(estanteriaLista.size()<= getTamanio()) {
+			if(!estanteriaLista.contains(l)) {
+				estanteriaLista.add(l);
+			}else {
+				System.out.println("ese libro: "+ l.getTitulo()+" ya esta");
+			}
+		}else {
+			System.out.println("sobrepasado el tamaño de la estanteria, no se puede añadir mas libros");
+		}
+	}
+	public void añadeElementosDisco(Disco d) {
+		if(estanteriaLista.size()<=getTamanio()) {
+			if(!estanteriaLista.contains(d)) {
+				estanteriaLista.add(d);
+			}else {
+				System.out.println("ese disco: "+d.getTitulo()+ " ya esta ");
+			}
+		}else {
+			System.out.println("sobrepasado el tamaño de la estanteria, no se puede añadir mas discos");
+		}
+	}
+
+	@Override
+	public Iterator iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
 
 class almacenables{
 	private String titulo,autor;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		almacenables other = (almacenables) obj;
+		if (autor == null) {
+			if (other.autor != null)
+				return false;
+		} else if (!autor.equals(other.autor))
+			return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		return true;
+	}
 	protected String getTitulo() {
 		return titulo;
 	}
@@ -49,7 +133,11 @@ class almacenables{
 class Libro extends almacenables{
 	
 	private int numPaginas;
-	public Libro() {
+	public Libro(String titulo, String autor, int numPaginas) {
+		this.setTitulo(titulo);
+		this.setAutor(autor);
+		this.numPaginas=numPaginas;
+		//this.setNumPaginas(numPaginas);
 	}
 	protected int getNumPaginas() {
 		return numPaginas;
@@ -62,8 +150,11 @@ class Libro extends almacenables{
 class Disco extends almacenables{
 	
 	 private int numCanciones;
-	 public Disco () {
-		 
+	
+	 public Disco (String titulo, String autor, int numCanciones) {
+		 this.setTitulo(titulo);
+		 this.setAutor(autor);
+		 this.setNumCanciones(numCanciones);
 	 }
 
 	protected int getNumCanciones() {
