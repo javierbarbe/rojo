@@ -50,6 +50,9 @@ public class Ej3 {
 			Matcher matlib= patlib.matcher(clase);
 			Pattern patdisco= Pattern.compile(("(Disco)"));
 			Matcher matdisco= patdisco.matcher(clase);
+			
+			// NO ME PERMITE AQUI EL UTILIZAR LOS METODOS PROPIOS DE LAS CLASES... SOLO ME DEJA USAR LOS
+			// QUE TIENE LA CLASE PADRE 
 			if(matlib.find()) {
 				iterador.previous();
 				//System.out.println("coincide con el patron");

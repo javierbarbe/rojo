@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Estante implements Iterable{
+	// añado objetos DIsco y Libro2  para intentar acceder a sus metodos 
+	 Disco d1 = new Disco();
+	 Libro2 l1= new Libro2();
 	private int tamanio;
 	protected int getTamanio() {
 		return tamanio;

@@ -10,6 +10,9 @@ class Disco extends almacenables{
 		 super.setNumCanciones(numCanciones);
 		 this.numCanciones=numCanciones;
 	 }
+	 public Disco() {
+		 
+	 }
 
 	protected int getNumCanciones2() {
 		return numCanciones;
