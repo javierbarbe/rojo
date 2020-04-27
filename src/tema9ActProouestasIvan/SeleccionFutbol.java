@@ -20,7 +20,9 @@ public class SeleccionFutbol {
 		seleccion.put(8, "culerdo indeseabla");
 		seleccion.put(7, "raul gonzalez blanco");
 		seleccion.put(6, "gusiluz");
-		
+		for (Map.Entry<Integer, String> entry : seleccion.entrySet()) {
+		    System.out.println("clave = " + entry.getKey() + ", valor =  " + entry.getValue());
+		}
 		for ( int i = 0 ; i < seleccion.size(); i++) {
 			System.out.println(seleccion.containsKey(i));
 		}
