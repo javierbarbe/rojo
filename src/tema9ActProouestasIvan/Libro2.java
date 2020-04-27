@@ -13,10 +13,10 @@ public class Libro2 extends almacenables{
 	public Libro2() {
 		
 	}
-	protected int getNumPaginas() {
+	public int getNumPaginas() {
 		return numPaginas;
 	}
-	protected void setNumPaginas(int numPaginas) {
+	public void setNumPaginas(int numPaginas) {
 		this.numPaginas = numPaginas;
 	}
 }

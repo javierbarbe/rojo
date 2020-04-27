@@ -33,6 +33,7 @@ public class Ej3 {
 	//	miestante.estanteriaLista.add(new almacenables());
 		miestante.aniadeElementosLi(new Libro2("las mil y una noches", "popular", 1001));
 		miestante.aniadeElementosLi(new Libro2("las mil y dos noches", "popular", 1001));
+		miestante.aniadeElementosLi(new Libro2("las mil y dos noches", "popular", 1001));
 		miestante.añadeElementosDisco(new Disco("HELP", "The Beatles", 9));
 		//miestante.estanteriaLista.
 //		for(Object i: miestante) {

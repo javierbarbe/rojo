@@ -14,10 +14,10 @@ class Disco extends almacenables{
 		 
 	 }
 
-	protected int getNumCanciones2() {
+	public int getNumCanciones2() {
 		return numCanciones;
 	}
-	protected void setNumCanciones2(int numCanciones) {
+	public void setNumCanciones2(int numCanciones) {
 		this.numCanciones = numCanciones;
 	}
 }

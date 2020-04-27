@@ -8,11 +8,11 @@ public class Estante implements Iterable{
 	 Disco d1 = new Disco();
 	 Libro2 l1= new Libro2();
 	private int tamanio;
-	protected int getTamanio() {
+	public int getTamanio() {
 		return tamanio;
 	}
 
-	protected void setTamanio(int tamanio) {
+	public void setTamanio(int tamanio) {
 		this.tamanio = tamanio;
 	}
 
