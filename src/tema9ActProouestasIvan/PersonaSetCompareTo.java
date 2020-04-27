@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class PersonaSet implements Comparable{
+public class PersonaSetCompareTo implements Comparable{
 	// <<<<<<<<<<<<<<<<<<<<	ATRIBUTOS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	private int id,altura;
@@ -15,7 +15,7 @@ public class PersonaSet implements Comparable{
 	//************************************************************************
 	
 	// CONSTRUCTORES--------------------------------------------------------------
-	public PersonaSet(String nombre, int id, int altura) {
+	public PersonaSetCompareTo(String nombre, int id, int altura) {
 		this.nombre=nombre;
 		this.id=id;
 		this.altura=altura;
@@ -79,7 +79,7 @@ public class PersonaSet implements Comparable{
 	@Override  			//igual que los numeros, si lo quiero a la inversa invertir el orden de los operandos en el return
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
-		PersonaSet p = (PersonaSet)o;
+		PersonaSetCompareTo p = (PersonaSetCompareTo)o;
 		return p.nombre.compareTo(this.nombre);
 	}
 			
@@ -92,14 +92,14 @@ public class PersonaSet implements Comparable{
 	
 	//// <<<<<<<<<<<<<<<<<<<<<<< METODO MAIN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public static void main (String [] args) {
-		Set <PersonaSet>miset =new HashSet<>();
-		SortedSet <PersonaSet> misorted= new TreeSet<>();
-		PersonaSet persSet = new PersonaSet("javier", 123, 198);
+		Set <PersonaSetCompareTo>miset =new HashSet<>();
+		SortedSet <PersonaSetCompareTo> misorted= new TreeSet<>();
+		PersonaSetCompareTo persSet = new PersonaSetCompareTo("javier", 123, 198);
 		misorted.add(persSet);
-		misorted.add(new PersonaSet("malio",4253,175));
-		misorted.add(new PersonaSet("santiago", 325, 172));
-		misorted.add(new PersonaSet("josue",75445, 183));
-		misorted.add(new PersonaSet("amalia", 335, 166));
+		misorted.add(new PersonaSetCompareTo("malio",4253,175));
+		misorted.add(new PersonaSetCompareTo("santiago", 325, 172));
+		misorted.add(new PersonaSetCompareTo("josue",75445, 183));
+		misorted.add(new PersonaSetCompareTo("amalia", 335, 166));
 		
 	
 		System.out.println(misorted);
