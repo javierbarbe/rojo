@@ -29,51 +29,19 @@ public class Ej3 {
 //		estanteriaLista.add(new Libro("las mil y una noches", "popular", 1001));
 //		estanteriaLista.add(new Disco("Bilo", "Cantante No se", 12));
 		Estante miestante = new  Estante();
-		miestante.setTamanio(2);
+		miestante.setTamanio(3);
+		System.out.println("añado los libros y los discos a la estanteria");
 	//	miestante.estanteriaLista.add(new almacenables());
 		miestante.aniadeElementosLi(new Libro2("las mil y una noches", "popular", 1001));
 		miestante.aniadeElementosLi(new Libro2("las mil y dos noches", "popular", 1001));
 		miestante.aniadeElementosLi(new Libro2("las mil y dos noches", "popular", 1001));
-		miestante.añadeElementosDisco(new Disco("HELP", "The Beatles", 9));
-		//miestante.estanteriaLista.
-//		for(Object i: miestante) {
-//			System.out.println(i);
-//		}
-	//	miestante.forEach((o)->System.out.println(o.toString()));
-		//System.out.println(miestante.getTamanio());
-		ListIterator<almacenables> iterador =miestante.estanteriaLista.listIterator();
-		while(iterador.hasNext()) {
-			
-			Object iterado= iterador.next();
-			String clase = iterado.getClass().toString();
-			//System.out.println(clase);
-			Pattern patlib = Pattern.compile("(Libro)");
-			Matcher matlib= patlib.matcher(clase);
-			Pattern patdisco= Pattern.compile(("(Disco)"));
-			Matcher matdisco= patdisco.matcher(clase);
-			
-			// NO ME PERMITE AQUI EL UTILIZAR LOS METODOS PROPIOS DE LAS CLASES... SOLO ME DEJA USAR LOS
-			// QUE TIENE LA CLASE PADRE 
-			if(matlib.find()) {
-				iterador.previous();
-				//System.out.println("coincide con el patron");
-				System.out.println(iterador.next().getNumPag()+" numero de paginas del libro");
-			}
-			if(matdisco.find()) {
-				iterador.previous();
-				System.out.println(iterador.next().getNumCanciones()+ " canciones del disco");
-			}
-		}
-//		System.out.println("bucle for");
-//		for ( int i =0; i<miestante.getTamanio()+1; i++) {
-//			System.out.println(miestante.estanteriaLista.get(i).getTitulo());
-//			System.out.println(miestante.estanteriaLista.get(i).getNumPag());
-//			System.out.println(miestante.estanteriaLista.get(i).getNumCanciones());
-//			System.out.println(miestante.estanteriaLista.get(i).getAutor());
-//			
-//		}
-		miestante.añadeElementosDisco(new Disco("aladdir","disney", 250));
-		miestante.aniadeElementosLi(new Libro2("aladdir","disney", 250));
+		miestante.añadeElementosDisco(new Disco("HELP!", "The Beatles", 9));
+	;
+		
+		miestante.recorrerIterador();
+
+		miestante.añadeElementosDisco(new Disco("aladdin","disney", 25));
+		miestante.aniadeElementosLi(new Libro2("aladdin","disney", 250));
 		//UTILIZANDO LAMBDAS PARA EL FOREACH
 		//CON STREAM ME PERMITE FILTRAR PONER CONDICIONES
 		miestante.estanteriaLista.stream().filter(s->s.getNumCanciones()==0).
@@ -81,70 +49,13 @@ public class Ej3 {
 		
 		miestante.estanteriaLista.stream().filter(s-> s.getNumPag()==0).
 		forEach((o)->System.out.println(o.getNumCanciones()+ " num de canciones"));
-		
+		miestante.recorrerIterador();
 	}
 
 
 
 }
 
-class almacenables{
-	private String titulo,autor;
-	private int numPag, numCanciones;
-	protected int getNumPag() {
-		return numPag;
-	}
-	protected void setNumPag(int numPag) {
-		this.numPag = numPag;
-	}
-	protected int getNumCanciones() {
-		return numCanciones;
-	}
-	protected void setNumCanciones(int numCanciones) {
-		this.numCanciones = numCanciones;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
-		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		almacenables other = (almacenables) obj;
-		if (autor == null) {
-			if (other.autor != null)
-				return false;
-		} else if (!autor.equals(other.autor))
-			return false;
-		if (titulo == null) {
-			if (other.titulo != null)
-				return false;
-		} else if (!titulo.equals(other.titulo))
-			return false;
-		return true;
-	}
-	protected String getTitulo() {
-		return titulo;
-	}
-	protected void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-	protected String getAutor() {
-		return autor;
-	}
-	protected void setAutor(String autor) {
-		this.autor = autor;
-	}
-}
 
 
 

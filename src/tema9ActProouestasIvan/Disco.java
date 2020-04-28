@@ -1,6 +1,6 @@
 package tema9ActProouestasIvan;
 
-class Disco extends almacenables{
+class Disco extends Almacenables{
 	
 	 private int numCanciones;
 	

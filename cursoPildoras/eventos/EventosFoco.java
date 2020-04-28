@@ -49,6 +49,10 @@ class LaminaFoco extends JPanel{
 		LanzaFocos elfoco= new LanzaFocos();
 		//cuadro1 esta a la escucha es el que hace 
 		//elfoco es quien desencadena???
+		//fuente : cuadro1
+		//objeto a la escucha: instancia de LanzaFocos elfoco (tiene que implementar listener de algun tipo)
+		//accion desencadenada sobre el objeto a la escucha (evento) : comprobar el patron de correo electronico
+		//accion que lo desencadena : al perder el foco
 		cuadro1.addFocusListener(elfoco);
 	}
 	
@@ -70,7 +74,7 @@ private	class LanzaFocos implements FocusListener{
 			// TODO Auto-generated method stub
 			String correo= cuadro1.getText();
 			// \\w cualqier numero letra o guion bajo \\. escapa el caracter punto $obliga a ser final del string	
-			Pattern pat = Pattern.compile("\\w+(\\.\\w)*@[a-z]{1,}\\.(com|es)$");
+			Pattern pat = Pattern.compile("\\w+(\\.\\w*)*@[a-z]{1,}\\.(com|es)$");
 			Matcher m = pat.matcher(correo);
 			if(m.matches()) {
 				System.out.println("coincide con el patron");

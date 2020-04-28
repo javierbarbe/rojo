@@ -1,6 +1,6 @@
 package tema9ActProouestasIvan;
 
-public class Libro2 extends almacenables{
+public class Libro2 extends Almacenables{
 	
 	private int numPaginas;
 	public Libro2(String titulo, String autor, int numPaginas) {

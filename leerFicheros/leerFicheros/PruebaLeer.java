@@ -15,8 +15,9 @@ public class PruebaLeer {
 		//no hay que ponerle / "")
 			String linea="";
 			while(linea!=null) {
-				System.out.println(linea);
+				
 				linea=pru.readLine();
+				System.out.println(linea);
 			}
 			pru.close();
 			
