@@ -59,7 +59,7 @@ public class PruebaMultiplesOyentes {
 	 private class OyenteNuevo implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			MarcoEmergente marco = new MarcoEmergente();
+			MarcoEmergente marco = new MarcoEmergente(cerrar);
 			marco.setVisible(true);
 			
 		}
@@ -69,10 +69,25 @@ public class PruebaMultiplesOyentes {
  
  class MarcoEmergente extends JFrame{
 	 private  static int contador=0;
-	 public MarcoEmergente() {
+	 public MarcoEmergente(JButton boton_de_principal) {
+		 CierraTodos oyentecerrar = new CierraTodos();
+		// add(boton_de_principal);
+		 boton_de_principal.addActionListener(oyentecerrar);
 		 contador++;
 		 setTitle("Ventana "+ contador);
 		 setBounds(40*contador, 40*contador, 250, 250);//esto hace que salgan en cascada
+	 }
+	 //la clase oyente debe estar dentro de MarcoEmergente
+	 //tengo que darle la instruccion a marcoemergente de que cuando reciba un evento se cierre
+	 
+	 private class CierraTodos implements ActionListener{
+
+		
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			contador=0;
+		}
+		 
 	 }
 	 
  }

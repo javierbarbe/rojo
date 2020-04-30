@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-public class PruebaAcciones {
+public class PruebaAcciones_tecladoYraton {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
