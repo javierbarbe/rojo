@@ -12,7 +12,7 @@ public class Ej15ListaEnlazadaCreada {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			ColaDinamica <Object> micola= new ColaDinamica<>();
-			micola.aniadeAlFinal("hola");
+			micola.aniadePrincipio("hola");
 			String saludo= "como estas";
 			
 			micola.aniadeAlFinal(saludo);
