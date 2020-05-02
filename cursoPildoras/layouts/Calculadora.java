@@ -66,23 +66,23 @@ class PanelSuperior extends JPanel {
 	private class OyenteBotones implements ActionListener {
 		String valorpantalla2;
 		String entrada;
-		double sumando1 = 0;
-		double sumando2 = 0;
+		int sumando1 = 0;
+		int sumando2 = 0;
 		boolean operandocogido=false;
 		private boolean primersumandorecogido = false, segundosumandorecogido=false;
 		String operando = "";
 		
-		private void ponAFalso(double resultado) {
+		private void ponAFalso(int resultado) {
 			primersumandorecogido=false;
 			operandocogido=false;
-			pantalla.setText(Double.toString(resultado));
+			pantalla.setText(Integer.toString(resultado));
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			double resultado = 0;
+			int resultado = 0;
 
 			entrada = e.getActionCommand();
 			valorpantalla2 = pantalla.getText();
