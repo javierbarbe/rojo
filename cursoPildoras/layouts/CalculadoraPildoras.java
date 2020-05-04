@@ -33,7 +33,7 @@ class MarcoCalculadora2 extends JFrame {
 }
 
 class PanelCalculadora2 extends JPanel {
-	int sumando1, sumando2;
+	double sumando1, sumando2;
 	private JButton boton;
 	private JButton pantalla;
 	private JPanel medio;
@@ -47,7 +47,7 @@ class PanelCalculadora2 extends JPanel {
 		pantalla.setEnabled(false);
 		add(pantalla, BorderLayout.NORTH);
 		medio = new JPanel();
-		medio.setLayout(new GridLayout(4, 4));
+		medio.setLayout(new GridLayout(5, 4));
 		add(medio, BorderLayout.CENTER);
 		ActionListener orden = new AccionOrden();
 		ponBoton("7", insertar);
@@ -66,6 +66,7 @@ class PanelCalculadora2 extends JPanel {
 		ponBoton("*", orden);
 		ponBoton("=", orden);
 		ponBoton("C", orden);
+		ponBoton(".", insertar);
 
 	}
 
@@ -94,11 +95,11 @@ class PanelCalculadora2 extends JPanel {
 
 	private class AccionOrden implements ActionListener {
 		
-		int resultado;
+		double resultado;
 		String signo="";
 		String operacion;
 		public void continuaOperacion() {
-			pantalla.setText(Integer.toString(resultado));
+			pantalla.setText(Double.toString(resultado));
 			sumando1=resultado;			
 		}
 		
@@ -113,14 +114,14 @@ class PanelCalculadora2 extends JPanel {
 				pantalla.setText("0");
 			}
 			if( !operacion.equals("=")) {
-				sumando1= Integer.valueOf(pantalla.getText());
-				pantalla.setText(Integer.toString(sumando1));
+				sumando1= Double.valueOf(pantalla.getText());
+				pantalla.setText(Double.toString(sumando1));
 				principio=true;
 				signo=operacion;
 			}
 			
 			else {
-				sumando2=Integer.valueOf(pantalla.getText());
+				sumando2=Double.valueOf(pantalla.getText());
 				switch (signo) {
 				case "+":
 					resultado = sumando1 + sumando2;
@@ -129,7 +130,9 @@ class PanelCalculadora2 extends JPanel {
 				case "-": resultado= sumando1-sumando2;
 						continuaOperacion();
 						break;
-				case "/" : resultado = sumando1/sumando2;
+				case "/" : 
+				//	resultado= (double) resultado;
+					resultado = sumando1/sumando2;
 							continuaOperacion();
 							break;
 				case "*" : resultado = sumando1*sumando2;

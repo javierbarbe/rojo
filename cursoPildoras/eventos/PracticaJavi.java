@@ -51,19 +51,20 @@ class Marquito extends JFrame{
 	JButton cheqeaNombre= new JButton("chequea Nombre");
 	JTextField areaNombre=new JTextField() ;
 	JButton azulFondo= new JButton("azul");
-	
+	JButton verdeChillon = new JButton("verde chillon");
 	
 	
 	public void  paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
 		setLayout(null);
-		
+		verdeChillon.setBounds(66, 66, 99, 66);
 		cheqeaNombre.setBounds(40, 145, 195, 15);
 		areaNombre.setBounds(13, 33, 190, 25);
 		azulFondo.setBounds(203, 33, 66, 18);
 		add(areaNombre);
 		add(cheqeaNombre);
+		add(verdeChillon);
 		add(azulFondo);
 	}
 	public Paneli() {
@@ -81,6 +82,7 @@ class Marquito extends JFrame{
 		cheqeaNombre.addActionListener(oye);
 		cambiacolor cm = new cambiacolor();
 		azulFondo.addActionListener(cm);
+		verdeChillon.addActionListener(cm);
 		
 		//add(cheqeaNombre);
 	}
@@ -113,7 +115,14 @@ private class cambiacolor implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		Object fuente = e.getSource();
+		if (fuente.equals(azulFondo)) {
+			
+		
 		setBackground(Color.blue);
+		} if (fuente.equals(verdeChillon)) {
+			setBackground(Color.GREEN);
+		}
 	}
 	
 }
