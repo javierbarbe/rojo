@@ -48,7 +48,7 @@ public class Ej1CrearFicheronumerosPrimos {
 			BufferedWriter bw = new BufferedWriter (new FileWriter("leerFicheros/primos.txt"));
 //			BufferedReader br = new BufferedReader (new FileReader());
 			for ( int i = 0; i<mi.longitud();i++) {
-			bw.write(String.valueOf(arrayfinal[i])+"\n");
+				bw.write(String.valueOf(arrayfinal[i])+"\n");
 			}
 		
 			bw.close();

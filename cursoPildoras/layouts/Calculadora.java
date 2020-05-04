@@ -94,14 +94,15 @@ class PanelSuperior extends JPanel {
 				} else {
 					if (!primersumandorecogido) {
 						sumando1 = Integer.valueOf(pantalla.getText());
-						pantalla.setText("");
+						
 						primersumandorecogido = true;
 					} else {
 						sumando2 = Integer.valueOf(pantalla.getText());
-						pantalla.setText("");
+						//pantalla.setText("");
 						segundosumandorecogido=true;
 					}
 					if(!operandocogido) {
+						pantalla.setText(Integer.toString(sumando2));
 						operando = entrada;
 						operandocogido=true;
 					}
@@ -128,7 +129,7 @@ class PanelSuperior extends JPanel {
 
 					switch (operando) {
 					case "+": resultado = sumando1+sumando2;
-						
+						pantalla.setText(Integer.toString(sumando2));
 						ponAFalso(resultado);
 						break;
 					case "-": resultado= sumando1-sumando2;
@@ -145,7 +146,9 @@ class PanelSuperior extends JPanel {
 
 				}
 				if(entrada.equals("C")) {
-					pantalla.setText("");
+					pantalla.setText("0");
+					sumando1=0;
+					sumando2=0;
 				}
 			
 			
@@ -171,7 +174,7 @@ class PanelSuperior extends JPanel {
 			aniadeBotones("3", insertar);
 			aniadeBotones("-", insertar);
 			aniadeBotones("0", insertar);
-			aniadeBotones(".", insertar);
+			aniadeBotones("*", insertar);
 			aniadeBotones("=", insertar);
 			aniadeBotones("C", insertar);
 			// aniadeBotones("*");
