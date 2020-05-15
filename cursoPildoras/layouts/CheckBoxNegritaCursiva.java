@@ -24,6 +24,7 @@ class MarcoCheckBox extends JFrame{
 	JCheckBox negrita = new JCheckBox("negrita");
 	JLabel texto = new JLabel("En un lugar de la Mancha...");
 	JCheckBox cursiva = new JCheckBox("cursiva");
+	
 	public MarcoCheckBox() {
 		// TODO Auto-generated constructor stub
 		
@@ -31,7 +32,6 @@ class MarcoCheckBox extends JFrame{
 		setBounds(500, 120, 290, 190);
 		setLayout(new BorderLayout());
 		JPanel lamina1 = new JPanel();
-		
 		texto.setFont(new Font ("Calibri", Font.PLAIN, 20));
 		lamina1.add(texto);
 		add(lamina1, BorderLayout.CENTER);
