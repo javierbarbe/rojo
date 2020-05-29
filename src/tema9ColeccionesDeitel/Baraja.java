@@ -68,7 +68,7 @@ class MazoCartas {
 		int cuenta = 0;
 		for (Carta.Palo palo : Carta.Palo.values()) {
 			for (Carta.Valor valor : Carta.Valor.values()) {
-				mazo[cuenta] = new Carta(valor, palo);
+				mazo[cuenta] = new Carta(palo, valor);
 				cuenta++;
 			}
 		}
