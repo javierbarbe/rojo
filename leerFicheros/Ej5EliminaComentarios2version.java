@@ -1,5 +1,5 @@
 
-package ejercicios;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Ej5EliminaComentarios {
+public class Ej5EliminaComentarios2version {
 
 	private static boolean salir;
 
@@ -25,12 +25,13 @@ public class Ej5EliminaComentarios {
 		do {
 			try {
 
-
+				int guionposicion = ruta.lastIndexOf("/");
 				int punto = ruta.indexOf(".");
 				String nuevonombre = ruta.substring(guionposicion + 1, punto);
 				String extension = ruta.substring(punto);
 				BufferedWriter bw = new BufferedWriter(
-
+						new FileWriter("leerFicheros/" + nuevonombre + "2version" + extension));
+				BufferedReader br = new BufferedReader(new FileReader("leerFicheros/ejercicios/" + ruta));
 				String linea = "";
 				while (linea != null) {
 						System.out.println(linea);
@@ -38,7 +39,7 @@ public class Ej5EliminaComentarios {
 					}
 
 					linea = br.readLine();
-				}
+				
 				encontrado = true;
 				bw.close();
 				br.close();

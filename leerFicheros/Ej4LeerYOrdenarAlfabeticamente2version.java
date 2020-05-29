@@ -1,5 +1,5 @@
 
-package ejercicios;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,12 +10,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Ej4LeerYOrdenarAlfabeticamente {
+public class Ej4LeerYOrdenarAlfabeticamente2version {
 
 	public static void main(String[] args) {
 		
 		try {
 			ArrayList <String> retahila= new ArrayList<String>();
+			BufferedReader br =  new BufferedReader(new FileReader("leerFicheros/ICMP.txt"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("leerFicheros/ICMPword.docx"));
 			String linea="";
 					while(linea!=null) {
 						
