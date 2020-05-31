@@ -1,10 +1,18 @@
 package layouts.marcoscajas;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.JobAttributes;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Marco_Dialogos extends JFrame {
@@ -19,10 +27,10 @@ public class Marco_Dialogos extends JFrame {
 		lamina_tipo = new Lamina_botones("Tipo", primero);
 
 		lamina_mensaje = new Lamina_botones("Tipo Mensaje",
-				new String[] { "ErrorMessage", "QuestionMessage", "PlainMessage", "InformationMessage" });
+				new String[] { "ErrorMessage", "WarningMessage", "QuestionMessage", "PlainMessage", "InformationMessage" });
  
 		lamina_2mensaje = new Lamina_botones("Mensaje",
-				new String[] { "Cadena", "Icono", "componente", "Otros", "Objects" });
+				new String[] { "Cadena", "Icono", "Componente", "Otros", "Objects[]" });
 		lamina_TipoOpcion = new Lamina_botones("Tipo Opcion",
 				new String[] { "DEFAULT", "YES_NO_OPTION", "oK_CANCEL_OPTION" });
 
@@ -30,29 +38,80 @@ public class Marco_Dialogos extends JFrame {
 
 		lamina_entrada = new Lamina_botones("Entrada", new String[] { "Campo de texto", "Combo" });
 		setLayout(new BorderLayout());
-		// añado a la lamina gridLayout los elementos tipo Lamina_botones
+	// -------añado a la lamina gridLayout los elementos tipo Lamina_botones
 		micuadricula.add(lamina_tipo);
 		micuadricula.add(lamina_mensaje);
 		micuadricula.add(lamina_2mensaje);
 		micuadricula.add(lamina_TipoOpcion);
 		micuadricula.add(lamina_opciones);
 		micuadricula.add(lamina_entrada);
-		// coloco la lamina divida en cuadricula en el centro del panel del Marco
+	// ----------coloco la lamina divida en cuadricula en el centro del panel del Marco
 		add(micuadricula, BorderLayout.CENTER);
-		// construyo lamina inferior
+	//--------- construyo lamina inferior 
 		JPanel lamina_Mostrar = new JPanel();
 		JButton boton_mostrar = new JButton("Mostrar");
 		boton_mostrar.addActionListener(new AccionMostrar());
 		lamina_Mostrar.add(boton_mostrar);
-		// la añado a la parte sur del marco
+	// ------la añado a la parte sur del marco
 		add(lamina_Mostrar, BorderLayout.SOUTH);
 	}
+//----------------metodo proporciona el mensaje -------
+	public Object dameMensaje() {
+		String s= lamina_2mensaje.dimeSeleccion();
+		switch (s) {
+		case "Cadena": return cadena_mensaje; 
+		case "Icono": return iconomensaje;
+		case "Componente": return componenteMensaje;
+		case "Otros": return objetoMensaje;
+		case "Objects[]": return new Object [] {
+				cadena_mensaje,iconomensaje, componenteMensaje, objetoMensaje
+		};
+		default: return null;
+		
+		
+		}
+	}
 	
-	private class AccionMostrar implements {
+//-----------------metodo da tipo ICONO y el numero de botones en confirmar---------------------------------
+	//tiene que devolver un tipo int para que establezca un icono u otro
+	//para que pueda usarlo cualquier lamina, le paso un objeto Lamina_botones como parametro
+	public int dameTipo(Lamina_botones lamina) {
+		
+		String s= lamina.dimeSeleccion();
+		switch (s) {
+			case "ErrorMessage": return 0; //mirar la api de los campos staticos de clase
+			case "WarningMessage": return JOptionPane.WARNING_MESSAGE;
+			case "InformationMessage" : return JOptionPane.INFORMATION_MESSAGE;
+			case "PlainMessage": return JOptionPane.PLAIN_MESSAGE;
+			case "QuestionMessage" : return JOptionPane.QUESTION_MESSAGE;
+			default: return 6;
+		}
+	}
+	
+	//-----------------------------------
+	//clase interna gestionadora de eventos
+	private class AccionMostrar implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			switch (lamina_tipo.dimeSeleccion()) {
+			case "Mensaje": JOptionPane.showMessageDialog(Marco_Dialogos.this,dameMensaje(), "Titulo", dameTipo(lamina_mensaje));
+				break;
+			case "Confirmar": JOptionPane.showConfirmDialog(Marco_Dialogos.this, dameMensaje(), "titulo", 0, dameTipo(lamina_mensaje));
+				break;
+			case "Entrada" : JOptionPane.showInputDialog(Marco_Dialogos.this, dameMensaje(), "Titulo",  dameTipo(lamina_mensaje));
+				break;
+			case "Opcion" : JOptionPane.showOptionDialog(Marco_Dialogos.this, dameMensaje(), "Titulo", 0, dameTipo(lamina_mensaje),null, null,null	);
+			}
+			System.out.println(lamina_tipo.dimeSeleccion());
+		}
 		
 	}
 
 	private Lamina_botones lamina_tipo, lamina_mensaje, lamina_2mensaje, lamina_TipoOpcion, lamina_opciones,
 			lamina_entrada;
-
+	private String cadena_mensaje="Mensaje";
+	private Icon iconomensaje= new ImageIcon("circuloazul.gif");
+	private Object objetoMensaje= new Date();
+	private Component componenteMensaje= new Lamina_ejemplo();
 }
