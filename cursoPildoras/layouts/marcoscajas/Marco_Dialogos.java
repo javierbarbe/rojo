@@ -19,7 +19,7 @@ public class Marco_Dialogos extends JFrame {
 
 	public Marco_Dialogos() {
 		setVisible(true);
-		setBounds(400, 400, 250, 135);
+		setBounds(400, 400, 450, 435);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		JPanel micuadricula = new JPanel();
 		micuadricula.setLayout(new GridLayout(2, 3));
@@ -32,7 +32,7 @@ public class Marco_Dialogos extends JFrame {
 		lamina_2mensaje = new Lamina_botones("Mensaje",
 				new String[] { "Cadena", "Icono", "Componente", "Otros", "Objects[]" });
 		lamina_TipoOpcion = new Lamina_botones("Tipo Opcion",
-				new String[] { "DEFAULT", "YES_NO_OPTION", "oK_CANCEL_OPTION" });
+				new String[] { "DEFAULT", "YES_NO_OPTION","YES_NO_CANCEL_OPTION", "OK_CANCEL_OPTION" });
 
 		lamina_opciones = new Lamina_botones("Opciones", new String[] { "String[]", "Icon[]", "Object[]" });
 
@@ -74,7 +74,8 @@ public class Marco_Dialogos extends JFrame {
 	
 //-----------------metodo da tipo ICONO y el numero de botones en confirmar---------------------------------
 	//tiene que devolver un tipo int para que establezca un icono u otro
-	//para que pueda usarlo cualquier lamina, le paso un objeto Lamina_botones como parametro
+	//para que pueda usarlo cualquier lamina, asi relaciono la lamina
+	// que quiero le paso un objeto Lamina_botones como parametro
 	public int dameTipo(Lamina_botones lamina) {
 		
 		String s= lamina.dimeSeleccion();
@@ -84,7 +85,30 @@ public class Marco_Dialogos extends JFrame {
 			case "InformationMessage" : return JOptionPane.INFORMATION_MESSAGE;
 			case "PlainMessage": return JOptionPane.PLAIN_MESSAGE;
 			case "QuestionMessage" : return JOptionPane.QUESTION_MESSAGE;
+			case "DEFAULT":return JOptionPane.DEFAULT_OPTION;
+			case "YES_NO_OPTION": return JOptionPane.YES_NO_OPTION;
+			case "YES_NO_CANCEL_OPTION":  return JOptionPane.YES_NO_CANCEL_OPTION;
+			case "OK_CANCEL_OPTION":  return JOptionPane.OK_CANCEL_OPTION;
 			default: return 6;
+		}
+	}
+	
+		// dar opciones a la laminaOPCION
+	public Object [] dameOpcion(Lamina_botones lamina) {
+		String s= lamina.dimeSeleccion();
+		switch (s) {
+		case "String[]": return new String [] {"Amarillo", "Rojo","Azul"
+					
+		};
+		case "Icon[]": return new ImageIcon[] {
+			new ImageIcon("circuloazul.gif"), 
+			new ImageIcon("circulorojo.gif"),
+			new ImageIcon("circuloamarillo.gif")	
+		};
+		case "Object[]": return new Object[] {
+				cadena_mensaje,iconomensaje, componenteMensaje, objetoMensaje
+		};
+		default:return  null;
 		}
 	}
 	
@@ -97,11 +121,16 @@ public class Marco_Dialogos extends JFrame {
 			switch (lamina_tipo.dimeSeleccion()) {
 			case "Mensaje": JOptionPane.showMessageDialog(Marco_Dialogos.this,dameMensaje(), "Titulo", dameTipo(lamina_mensaje));
 				break;
-			case "Confirmar": JOptionPane.showConfirmDialog(Marco_Dialogos.this, dameMensaje(), "titulo", 0, dameTipo(lamina_mensaje));
+			case "Confirmar": JOptionPane.showConfirmDialog(Marco_Dialogos.this, dameMensaje(), "titulo", dameTipo(lamina_TipoOpcion), dameTipo(lamina_mensaje));
 				break;
-			case "Entrada" : JOptionPane.showInputDialog(Marco_Dialogos.this, dameMensaje(), "Titulo",  dameTipo(lamina_mensaje));
-				break;
-			case "Opcion" : JOptionPane.showOptionDialog(Marco_Dialogos.this, dameMensaje(), "Titulo", 0, dameTipo(lamina_mensaje),null, null,null	);
+			case "Entrada" : 
+							if(lamina_entrada.dimeSeleccion().equals("Campo de texto"))	{
+								JOptionPane.showInputDialog(Marco_Dialogos.this, dameMensaje(), "Titulo",  dameTipo(lamina_mensaje));
+							}else {
+								JOptionPane.showInputDialog(Marco_Dialogos.this, dameMensaje(), "titulo", dameTipo(lamina_mensaje), null, new String [] {"Amarillo", "Azul", "Rojo"}, "Azul");
+							}
+							break;
+			case "Opcion" : JOptionPane.showOptionDialog(Marco_Dialogos.this, dameMensaje(), "Titulo",0, dameTipo(lamina_mensaje),null,  dameOpcion(lamina_opciones),null	);
 			}
 			System.out.println(lamina_tipo.dimeSeleccion());
 		}

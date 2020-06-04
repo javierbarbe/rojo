@@ -43,7 +43,7 @@ public class PreguntaNombres extends Pregunta {
 		PreguntaNombres ne = new PreguntaNombres();
 		Jugador yo= new Jugador("Antonio");
 
-		yo.responder();
+//		yo.responder();
 		
 		
 //		System.out.println("hooooooooooooooooooooooola");
