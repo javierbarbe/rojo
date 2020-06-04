@@ -204,7 +204,7 @@ class Paneles extends JPanel{
 					ResultSet consultaUsuariosContra= primerState.executeQuery("select * from registro where usuario = '"+ usuario+ "'"
 							+ " and password= '"+ contrasenia+"'");
 					if (consultaUsuariosContra.next()) {
-						EmergenteEj1 em = new EmergenteEj1();
+						Emergente2Pantalla em = new Emergente2Pantalla("imagenes/candadoabierto.gif","Control de Acceso","Acceso Concedido");
 					}else {
 						//aqui generar el panel de quiere registrarse?? 
 					}
