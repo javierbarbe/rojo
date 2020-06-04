@@ -65,7 +65,7 @@ class Paneles extends JPanel{
 		add(inferior);
 		add(bottom);
 	}
-	class PanelAcceso extends JPanel{
+	private class PanelAcceso extends JPanel{
 		public PanelAcceso(String titulo) {
 			
 			JLabel tituloLabel = new JLabel(titulo);
@@ -207,6 +207,7 @@ class Paneles extends JPanel{
 						Emergente2Pantalla em = new Emergente2Pantalla("imagenes/candadoabierto.gif","Control de Acceso","Acceso Concedido");
 					}else {
 						//aqui generar el panel de quiere registrarse?? 
+						PantallaRegistro mi = new PantallaRegistro();
 					}
 //					while (consultaUsuariosContra.next()) {
 //						contador++;

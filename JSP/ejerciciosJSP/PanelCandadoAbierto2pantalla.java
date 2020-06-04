@@ -97,7 +97,7 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 				 System.out.println(intro2);
 				pulsado++;
 				}else {
-					JFrame marcPiramide = new JFrame();
+					//JFrame marcPiramide = new JFrame();
 					
 					System.out.println("Es el momento de sacar otra emergente"+ intro2);
 				}
@@ -112,6 +112,7 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			
 			System.out.println(cajaTextoIntroducido.getText());
 			marcoPiramide = new JFrame();
 			capa = new JPanel();
@@ -135,6 +136,9 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 			if(!esEntero) {
 				marcoPiramide.add(new JLabel("ERROR DE CONVERSION... INTRODUZCA UN VALOR ENTERO"));
 			}
+			//es necesario ponerlo a false otra vez para que evalue cada vez que se pulsa el boton
+			// si lo que hay en la caja de texto es un entero
+			esEntero=false;
 		}
 		public void calculaPisos(int altura) {
 			for (int i =0; i<altura; i++) {
