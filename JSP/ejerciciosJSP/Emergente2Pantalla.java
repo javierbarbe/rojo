@@ -15,7 +15,7 @@ public class Emergente2Pantalla extends JFrame {
 	PanelCandadoAbierto2pantalla pa;
 	public Emergente2Pantalla(String direccionImagen, String titulo, String descripcion) {
 		setVisible(true);
-		setBounds(500, 500, 350, 350);
+		setBounds(500, 300, 350, 350);
 		pa = new PanelCandadoAbierto2pantalla(direccionImagen, titulo, descripcion);
 	
 		add(pa);
@@ -23,7 +23,7 @@ public class Emergente2Pantalla extends JFrame {
 	}
 	public Emergente2Pantalla(String textoPrecaja, String titulo) {
 		setVisible(true);
-		setBounds(500, 500, 350, 350);
+		setBounds(500, 300, 350, 350);
 		 pa = new PanelCandadoAbierto2pantalla(textoPrecaja, titulo);
 	//	pa.add(new JLabel(textoPrecaja));
 		//pa.add(new JTextField());

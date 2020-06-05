@@ -31,7 +31,7 @@ public class PanelRegistro extends JPanel{
 	JButton registra= new JButton("Registrarse");
 	
 	
-	public PanelRegistro() {
+	public PanelRegistro(JFrame padre) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JLabel titulo = new JLabel("FORMULARIO REGISTRO");
 		titulo.setFont(new Font("Cambria", Font.BOLD, 18));
@@ -47,7 +47,9 @@ public class PanelRegistro extends JPanel{
 		registra.setBackground(Color.red.brighter().brighter());
 		registra.addActionListener(new OyenteRegistro());
 		boton.add(registra);
+		//padre.DO_NOTHING_ON_CLOSE;
 		//-----------------------
+		add(new JPanel());
 		add(titulo);
 		add(usuario);
 		add(contras);
@@ -81,6 +83,7 @@ public class PanelRegistro extends JPanel{
 				Connection conec = DriverManager.getConnection(conexion,"root", "");
 				Statement	primerState = conec.createStatement();
 				primerState.executeUpdate("insert into registro (usuario,password)values ('"+ nombreUser+ "', '"+ contraUser+"')");
+				
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

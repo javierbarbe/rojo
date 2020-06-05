@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.SwingConstants;
 
 public class PanelCandadoAbierto2pantalla extends JPanel {
 	int pulsado=0;
+	static int pulsacion=0;
 	OyeBotonAceptar evento1marco= new OyeBotonAceptar();
 	JPanel laminaCajatexto;
 	JTextField cajaTextoIntroducido = new JTextField(15);
@@ -73,7 +75,7 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 		if (informacion!= null) {
 			inferior.add(informacion);
 		}
-		
+		add(new JPanel());
 		inf2.add(aceptar);
 		add(superior);
 		add(medio);
@@ -107,16 +109,24 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 	private class SacaPiramide implements ActionListener{
 		JFrame marcoPiramide ;
 		boolean esEntero=false;
+		
 		JPanel capa;
 		int pisos=0;
+		ArrayList<JPanel> imagenesporpiso = new ArrayList<JPanel>();
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
 			System.out.println(cajaTextoIntroducido.getText());
 			marcoPiramide = new JFrame();
+			
 			capa = new JPanel();
 			capa.setLayout(new BoxLayout(capa, BoxLayout.Y_AXIS));
+//			if (pulsacion>1) {
+//				capa.removeAll();
+//				marcoPiramide.removeAll();
+//				pulsacion=0;
+//			}
 			while (!esEntero) {
 				
 				try{
@@ -130,25 +140,61 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 					break;
 				}
 			}
-			calculaPisos(pisos);
+			calculaPisosInvertida(pisos);
 			marcoPiramide.setVisible(true);
-			marcoPiramide.setBounds(500, 500, 350, 350)	;
+			marcoPiramide.setBounds(500, 300, 350, 350)	;
 			if(!esEntero) {
 				marcoPiramide.add(new JLabel("ERROR DE CONVERSION... INTRODUZCA UN VALOR ENTERO"));
 			}
 			//es necesario ponerlo a false otra vez para que evalue cada vez que se pulsa el boton
 			// si lo que hay en la caja de texto es un entero
 			esEntero=false;
+			pulsacion++;
+		
 		}
-		public void calculaPisos(int altura) {
-			for (int i =0; i<altura; i++) {
-				JLabel img$i = new JLabel(new ImageIcon("imagenes/gru.gif"));
-				JPanel capa$i = new JPanel();
-				capa$i.add(img$i);
-				capa.add(capa$i);
+		public void calculaPisosInvertida(int altura) {
+			if(imagenesporpiso.size()>0) {
+				JPanel unica = new JPanel();
+				capa.add(unica);
+				for (int i = 0; i<imagenesporpiso.size();i++) {
+					imagenesporpiso.remove(i);
+				}
 				
+			}
+			
+			if (altura>1) {
+				int base = (2*altura)-1;
+				for (int i =0; i<altura; i++) {
+					JPanel capa$i = new JPanel();
+					for (int j = 0 ; j<base;j++) {
+						JLabel img$j = new JLabel(new ImageIcon("imagenes/gru.gif"));
+						capa$i.add(img$j);
+						
+					}
+					if(base==0) {
+						JLabel imgultima = new JLabel(new ImageIcon("imagenes/gru.gif"));
+						capa$i.add(imgultima);
+					}
+					base-=2;
+					
+					imagenesporpiso.add(capa$i);
+					//capa.add(capa$i);
+				}
+			imprimePiramideDerecha();
+			}else {
+				JLabel imgultima = new JLabel(new ImageIcon("imagenes/gru.gif"));
+				JPanel unica = new JPanel();
+				unica.add(imgultima);
+				capa.add(unica);
 			}
 			marcoPiramide.add(capa);
 		}
+	
+		public void imprimePiramideDerecha () {
+			for (int a =imagenesporpiso.size()-1; a>=0; a--) {
+				capa.add(imagenesporpiso.get(a));
+			}
+		}
+		
 	}
 }
