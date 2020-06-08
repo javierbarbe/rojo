@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class PanelCandadoAbierto2pantalla extends JPanel {
+public class ConstruyePanelesConOSinImagen extends JPanel {
 	int pulsado=0;
 	static int pulsacion=0;
 	OyeBotonAceptar evento1marco= new OyeBotonAceptar();
@@ -24,7 +24,11 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 	private JLabel imagenPanel, titularPanel, informacion;
 	private JPanel superior= new JPanel(), medio= new JPanel(), inferior= new JPanel(),inf2= new JPanel();
 	JButton aceptar;
-	public PanelCandadoAbierto2pantalla(String rutaImagen, String textoLabelTitulo, String textoInformativo) {
+	
+	//----------constructor con imagen-------------------------------------------
+	public ConstruyePanelesConOSinImagen(String rutaImagen, String textoLabelTitulo, String textoInformativo) {
+		setVisible(true);
+		setBounds(500, 300, 350, 350);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	
 		// inicializacion de los componentes----------------------------------
 		imagenPanel = new JLabel(new ImageIcon(rutaImagen));
@@ -38,8 +42,26 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 		añadeBoton();
 		
 	}
-	
-	public PanelCandadoAbierto2pantalla(String texto, String titulo) {
+	//----------constructor con imagen-------------------------------------------
+	public ConstruyePanelesConOSinImagen(String textoInformativo) {
+		setVisible(true);
+		setBounds(500, 300, 350, 350);
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	
+		// inicializacion de los componentes----------------------------------
+		titularPanel=new JLabel(textoInformativo);
+		titularPanel.setFont(new Font("Cambria", Font.BOLD, 25));
+	//	informacion = new JLabel(textoInformativo);
+// -------- configuracion del boton y creacion------------------
+		iniciaBoton();
+// añado los componentes a los paneles -------------------------------
+		añadeComponentes();
+		añadeBoton();
+		
+	}
+	// constructor sin imagen------------------------------------------------
+	public ConstruyePanelesConOSinImagen(String texto, String titulo) {
+		setVisible(true);
+		setBounds(500, 300, 350, 350);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JPanel laminaCajatexto = new JPanel();
 		laminaCajatexto.add(new JLabel(texto));
@@ -57,12 +79,12 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 	public void añadeBoton() {
 		add(inf2);
 	}
-	public void iniciaBoton() {
+	public JButton iniciaBoton() {
 		aceptar = new JButton("ACEPTAR", new ImageIcon("imagenes/check.gif"));
 		aceptar.setHorizontalTextPosition(SwingConstants.LEFT);
 		aceptar.setBackground(Color.green.brighter());
 		aceptar.addActionListener( evento1marco);
-		
+		return aceptar;
 	}
 	public void añadeComponentes() {
 		//System.out.println(imagenPanel.getText());
@@ -75,8 +97,11 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 		if (informacion!= null) {
 			inferior.add(informacion);
 		}
+		// otorga margen por arriba-------------------------------------
 		add(new JPanel());
+		//añade el boton a la lamina inferior-----------------------------------------
 		inf2.add(aceptar);
+		//-------------------------------------------------------
 		add(superior);
 		add(medio);
 		add(inferior);
@@ -92,6 +117,7 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 			
 				
 				if (pulsado==0) {
+					//ConstruyePanelesConOSinImagen cantidadPiramide = new ConstruyePanelesConOSinImagen("Altura", "Panel Altura");
 					cantidadPiramide=  new Emergente2Pantalla("Altura", "Introduccion de Altura");
 			//	EmergenteEj1 cantidadPiramide = new EmergenteEj1("Altura", "Introduccion de Altura");
 				 introducido=cajaTextoIntroducido.getText();
@@ -162,7 +188,7 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 				
 			}
 			
-			if (altura>1) {
+//			if (altura>1) {
 				int base = (2*altura)-1;
 				for (int i =0; i<altura; i++) {
 					JPanel capa$i = new JPanel();
@@ -181,12 +207,12 @@ public class PanelCandadoAbierto2pantalla extends JPanel {
 					//capa.add(capa$i);
 				}
 			imprimePiramideDerecha();
-			}else {
-				JLabel imgultima = new JLabel(new ImageIcon("imagenes/gru.gif"));
-				JPanel unica = new JPanel();
-				unica.add(imgultima);
-				capa.add(unica);
-			}
+//			}else {
+//				JLabel imgultima = new JLabel(new ImageIcon("imagenes/gru.gif"));
+//				JPanel unica = new JPanel();
+//				unica.add(imgultima);
+//				capa.add(unica);
+//			}
 			marcoPiramide.add(capa);
 		}
 	

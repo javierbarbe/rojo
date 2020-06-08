@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -46,15 +47,15 @@ class MarcoAcceso extends JFrame{
 
 class Paneles extends JPanel{
 	private PanelAcceso superior, inferior;
-	
+	private HashMap<String, String> usersContrasMapa= new HashMap<String, String>();
 	public Paneles() {
 	
 	//	
 		//dispongo el marco en forma de boxlayout para colocar una lamina debajo de otra
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		 superior = new PanelAcceso(new ImageIcon("imagenes/usuario.gif"), "Usuario");
+		 superior = new PanelAcceso(new ImageIcon("imagenes/usuario.gif"), "root");
 		
-		 inferior = new PanelAcceso(new ImageIcon("imagenes/candado.gif"), "Contraseña");
+		 inferior = new PanelAcceso(new ImageIcon("imagenes/candado.gif"), "admin");
 		PanelAcceso top2 = new PanelAcceso("Control Acceso");
 		PanelAcceso top= new PanelAcceso();
 		PanelAcceso bottom= new PanelAcceso("Aceptar", new ImageIcon("imagenes/check.gif"), Color.green.darker());
@@ -184,7 +185,7 @@ class Paneles extends JPanel{
 			
 		}
 		private class OyenteBoton implements ActionListener{
-
+			boolean rooter=false;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Has pulsado el boton");
@@ -192,23 +193,53 @@ class Paneles extends JPanel{
 				String contrasenia= inferior.cajaTexto.getText();
 				System.out.println(usuario);
 				System.out.println(contrasenia);
-				int contador=0;
+			
 				try {
 				
 					Class.forName("com.mysql.jdbc.Driver");
 					String conexion = "jdbc:mysql://localhost/bd1?user=root&password=?useLegacyDatetimeCode=false&serverTimezone=UTC";  
 					Connection conec= DriverManager.getConnection(conexion,"root", "");
 					Statement	primerState = conec.createStatement();
-					//pregunto a la bbdd si hay alguna coincidencia de user y contraseña, si es asi, 
+//------------------------------pregunto a la bbdd si hay alguna coincidencia de user y contraseña, si es asi, 
 				// se permite el acceso, sino opcion de ... quieres registrarte?
-					ResultSet consultaUsuariosContra= primerState.executeQuery("select * from registro where usuario = '"+ usuario+ "'"
-							+ " and password= '"+ contrasenia+"'");
-					if (consultaUsuariosContra.next()) {
-						Emergente2Pantalla em = new Emergente2Pantalla("imagenes/candadoabierto.gif","Control de Acceso","Acceso Concedido");
-					}else {
-						//aqui generar el panel de quiere registrarse?? 
-						PantallaRegistro mi = new PantallaRegistro();
+					//ResultSet consultaUsuariosContra= primerState.executeQuery("select * from registro where usuario = '"+ usuario+ "'"
+					//		+ " and password= '"+ contrasenia+"'");
+//					if (consultaUsuariosContra.next()) {
+//					
+//					}else {
+//						//aqui generar el panel de quiere registrarse?? 
+//						PantallaRegistro mi = new PantallaRegistro();
+//					}				
+	//-------------------------------------------------------------------------------------------		
+					
+					// voy a descargar los datos de la bdd y volcarlos en un hashmap, asi solo necesito un acceso a la bdd 
+					// desde ese hashmap me sera mas facil trabajar, obliga a usuarios unicos ademas ç
+					ResultSet consultaUsuariosContra= primerState.executeQuery("select * from registro ");
+					
+					while(consultaUsuariosContra.next()) {
+						usersContrasMapa.put(consultaUsuariosContra.getString(1), consultaUsuariosContra.getString(2));
 					}
+					
+					if (contrasenia.equals("admin")&& usuario.equals("root")) {
+						
+						 consultaUsuariosContra= primerState.executeQuery("select * from registro ");
+					
+						
+						while(consultaUsuariosContra.next()) {
+							usersContrasMapa.put(consultaUsuariosContra.getString(1), consultaUsuariosContra.getString(2));
+						}
+						MarcoCargaHashMap rootPanel = new MarcoCargaHashMap(usersContrasMapa);
+						
+						rooter= true;
+					}
+					if (!rooter) {
+						if ( usersContrasMapa.get(usuario).equals(contrasenia)) {
+							System.out.println("el usuario y la contrasenia coinciden");
+							Emergente2Pantalla em = new Emergente2Pantalla("imagenes/candadoabierto.gif","Control de Acceso","Acceso Concedido");
+							
+						}
+					}
+					rooter=false;
 //					while (consultaUsuariosContra.next()) {
 //						contador++;
 //					}
