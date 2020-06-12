@@ -1,9 +1,9 @@
 package clasesGenericas;
 
-public class Pareja <T>{
+public class ParejaHerenciaRara <T>{
 
-	public Pareja () {
-		this.nombre=null;
+	public ParejaHerenciaRara () {
+		this.nombre=(T) nombre.toString();
 	}
 	
 	public T getNombre() {
@@ -15,7 +15,7 @@ public class Pareja <T>{
 	}
 	// para que funcione la herencia necesitas usar una clase comodin
 	//consiste en poner (Pareja <? extends Empleado> eo) como argumento del metodo 
-	public static  void imprimirTrabajador(Pareja <? extends Empleado> eo) {
+	public static  void imprimirTrabajador(ParejaHerenciaRara <? extends Empleado> eo) {
 		Empleado nombre2 =eo.getNombre();
 		System.out.println(nombre2);
 	}

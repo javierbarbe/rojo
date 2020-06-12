@@ -9,12 +9,12 @@ public class HerenciaGenericos {
 		// al ser  un empleado es posible almacenar un jefe dentro de un objeto tipo empleado
 		Empleado nuevoEmpleado1 = directoraComercial;
 //-------------------- manejando clases genericas
-		Pareja<Empleado> administrativo = new Pareja<Empleado>();
-		Pareja <Jefe> directorcomercial = new Pareja<Jefe>();
+		ParejaHerenciaRara<Empleado> administrativo = new ParejaHerenciaRara<Empleado>();
+		ParejaHerenciaRara <Jefe> directorcomercial = new ParejaHerenciaRara<Jefe>();
 		// no es posible aunque jefe hereda de empleado, no puedo hacer que una clase generica 
 		// Pareja<Jefe> sea un objeto Pareja<Empleado> , no funciona el principio de sustitucion (es un)
 		//Pareja <Jefe> nuevoEmpleado = administrativo;
-		Pareja.imprimirTrabajador(directorcomercial);
+		ParejaHerenciaRara.imprimirTrabajador(directorcomercial);
 	}
 
 }

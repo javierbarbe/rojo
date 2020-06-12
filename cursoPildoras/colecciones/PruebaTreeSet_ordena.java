@@ -44,6 +44,36 @@ public class PruebaTreeSet_ordena {
 
 }
 class Articulo implements Comparable<Articulo>, Comparator<Articulo>{ //HAY QUE METERLE UN GENERICO DE LA CLASE PARA QUE COMPARE OBJETOS DE LA CLASE
+/*	aqui añado porque sí el auto generador del metodo equals
+ * 
+ * @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((desc == null) ? 0 : desc.hashCode());
+		result = prime * result + num;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Articulo other = (Articulo) obj;
+		if (desc == null) {
+			if (other.desc != null)
+				return false;
+		} else if (!desc.equals(other.desc))
+			return false;
+		if (num != other.num)
+			return false;
+		return true;
+	}*/
+
 	//ATRIBUTOS  ESO O HACER EL CASTEO EN EL METODO COMPARETO Articulo otro = (Articulo)o;
 	private String desc;
 	private int num;
