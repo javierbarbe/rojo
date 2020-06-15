@@ -16,8 +16,8 @@ public class RelojDigital {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MarcoReloj reloj = new MarcoReloj();
-		Thread t = new Thread(reloj);
-		t.start();
+//		Thread t = new Thread(reloj);
+//		t.start();
 //		GregorianCalendar fecha = new GregorianCalendar();
 //		System.out.println(fecha.get(12));
 		// 13 segundos
@@ -49,7 +49,16 @@ class MarcoReloj extends JFrame implements Runnable {
 		tiempo.setFont(new Font("Cambria", Font.BOLD, 82));
 		panelHora.add(tiempo);
 		// con clase interna anonima el evento
-		
+		iniciar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//MarcoReloj reloj = new MarcoReloj();
+				Thread t = new Thread(new MarcoReloj());
+				t.start();
+			}
+		});
 				
 		panelBoton.add(iniciar);
 		add(panelHora, BorderLayout.CENTER);

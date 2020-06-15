@@ -20,21 +20,28 @@ import javax.swing.JProgressBar;
 	Gana el primero que llegue a 100.
  */
 
-public class CarreraCamellos  {
+public class CarreraCamellos {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		MarcoCamellosCarreras car = new MarcoCamellosCarreras();
+		MarcoCamellosCarreras car = new MarcoCamellosCarreras(new MarcoCamellosCarreras());
 		Thread t = new Thread(car);
 		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
 
 }
 
 class MarcoCamellosCarreras extends JFrame implements Runnable {
-	boolean porcentajeMaximo=false;
+	MarcoCamellosCarreras recibido;
+	boolean porcentajeMaximo = false;
 	private static final long serialVersionUID = 1L;
+	private static int numCarrera=1;
 	JPanel fondo = new JPanel();
 	JLabel titulo = new JLabel("CARRERAS DE CABALLOS");
 
@@ -49,28 +56,34 @@ class MarcoCamellosCarreras extends JFrame implements Runnable {
 	JButton reiniciar = new JButton("Reinciar");
 
 	public MarcoCamellosCarreras() {
+
+	}
+	public MarcoCamellosCarreras(MarcoCamellosCarreras rec) {
+		recibido=rec;
 		setLayout(new BorderLayout());
 		titulo.setFont(new Font("Cambria", Font.BOLD, 35));
 		fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
-		setBounds(450, 300, 500, 350);
+		fondo.setBounds(450, 300, 700, 350);
+		setBounds(450, 300, 700, 350);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		fondo.add(titulo);
-		añadeCaballo(caballo1, superior1, 1);
-		añadeCaballo(caballo2, superior2, 2);
-		añadeCaballo(caballo3, inferior1, 3);
-		añadeCaballo(caballo4, inferior2, 4);
+		añadeCaballo(caballo1, superior1);
+		añadeCaballo(caballo2, superior2);
+		añadeCaballo(caballo3, inferior1);
+		añadeCaballo(caballo4, inferior2);
 //		
 		reiniciar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				 System.out.println("-----------------------");
 				ponerACero();
-				MarcoCamellosCarreras tr = new MarcoCamellosCarreras();
-				Thread hi = new Thread(tr);
-				hi.start();
+				Thread.currentThread().interrupt();
+				Thread t = new Thread(rec);
+				t.start();
+		
 			}
 		});
 		add(fondo, BorderLayout.CENTER);
@@ -78,51 +91,62 @@ class MarcoCamellosCarreras extends JFrame implements Runnable {
 
 	}
 
-	public void añadeCaballo(JProgressBar barraCaballo, JPanel laminaReceptora, int numeroCarrera) {
+	public void añadeCaballo(JProgressBar barraCaballo, JPanel laminaReceptora) {
 
-		laminaReceptora.add(new JLabel("Caballo " + numeroCarrera));
+		laminaReceptora.add(new JLabel("Caballo " + numCarrera));
+		numCarrera++;
 		laminaReceptora.add(barraCaballo);
 		fondo.add(laminaReceptora);
 	}
 
 	@Override
 	public void run() {
-		while (true && !porcentajeMaximo ) {
+		ponerACero();
+		while (true && !porcentajeMaximo) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				System.out.println("error al interrumpir el hilo "+ Thread.currentThread());
+				 
+				System.out.println("error al interrumpir el hilo " + Thread.currentThread());
 			}
-		pintaPorcentaje(caballo1, 1);
-		pintaPorcentaje(caballo2, 2);
-		pintaPorcentaje(caballo3, 3);
-		pintaPorcentaje(caballo4, 4);
+			
+			pintaPorcentaje(caballo1, 1);
+			pintaPorcentaje(caballo2, 2);
+			pintaPorcentaje(caballo3, 3);
+			pintaPorcentaje(caballo4, 4);
 		}
-	
-	}	
-	 public void ponerACero() {
-		 caballo1.setValue(0);
-		 caballo2.setValue(0);
-		 caballo3.setValue(0);
-		 caballo4.setValue(0);
-		 arranca=true;
-		 porcentajeMaximo=false;
-	 }
-	
-	public void pintaPorcentaje(JProgressBar caballoBarra ,int numero) {
-		caballoBarra.setName("Caballo "+ numero);
-		caballoBarra.setStringPainted(true);
-		int movimiento = (int) (Math.random()*15);
-		caballoBarra.setString(Integer.toString(caballoBarra.getValue())+"%");
-		caballoBarra.setValue(caballoBarra.getValue()+movimiento);
-		caballoBarra.setString(Integer.toString(caballoBarra.getValue())+"%");
-		if (caballoBarra.getValue()==100) {
-			Thread.currentThread().interrupt();
-			porcentajeMaximo= true;
-			System.out.println("el ganador es "+ caballoBarra.getName());
+
+	}
+
+	public void ponerACero() {
 		
+		caballo1.setValue(0);
+		caballo2.setValue(0);
+		caballo3.setValue(0);
+		caballo4.setValue(0);
+		caballo1.setString("0%");
+		caballo2.setString("0%");
+		caballo3.setString("0%");
+		caballo4.setString("0%");
+		add(fondo);
+		arranca = true;
+		porcentajeMaximo = false;
+	}
+
+	public void pintaPorcentaje(JProgressBar caballoBarra, int numero) {
+		caballoBarra.setName("Caballo " + numero);
+		caballoBarra.setStringPainted(true);
+		int movimiento = (int) (Math.random() * 15+1);
+		caballoBarra.setString(Integer.toString(caballoBarra.getValue()) + "%");
+		caballoBarra.setValue(caballoBarra.getValue() + movimiento);
+		caballoBarra.setString(Integer.toString(caballoBarra.getValue()) + "%");
+		if (caballoBarra.getValue() >= 100) {
+			Thread.currentThread().interrupt();
+			porcentajeMaximo = true;
+			System.out.println("el ganador es " + caballoBarra.getName());
+
 		}
 	}
-boolean arranca=false;
+
+	boolean arranca = false;
 }
